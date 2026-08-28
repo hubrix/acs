@@ -1,0 +1,72 @@
+# Kamal deploy configuration. Copy to config/deploy.yml and fill in.
+#
+# Replaces the Capistrano 2.5 setup (Capfile, config/deploy.rb).
+#
+#   gem install kamal
+#   kamal setup      # first deploy
+#   kamal deploy     # subsequent deploys
+#   kamal app logs -f
+#   kamal app exec --interactive --reuse "bin/rails console"
+
+service: acs
+image: your-user/acs
+
+servers:
+  web:
+    - 192.168.0.1
+
+proxy:
+  ssl: true
+  host: acs.example.com
+  app_port: 3000
+  healthcheck:
+    path: /up
+
+registry:
+  username: your-user
+  password:
+    - KAMAL_REGISTRY_PASSWORD
+
+env:
+  secret:
+    - RAILS_MASTER_KEY
+    - DATABASE_URL
+  clear:
+    RAILS_ENV: production
+    APP_HOST: acs.example.com
+    ASSUME_SSL: true
+    FORCE_SSL: true
+    RAILS_SERVE_STATIC_FILES: true
+    RAILS_MAX_THREADS: 5
+    WEB_CONCURRENCY: 2
+
+# config/app.yml carries the auth backend and mail settings, and
+# config/master.key decrypts Rails credentials. Neither is in the image.
+volumes:
+  - "acs_config:/rails/config/app.yml"
+  - "acs_storage:/rails/storage"
+
+aliases:
+  console: app exec --interactive --reuse "bin/rails console"
+  shell: app exec --interactive --reuse "bash"
+  logs: app logs -f
+  dbc: app exec --interactive --reuse "bin/rails dbconsole"
+
+builder:
+  arch: amd64
+
+# Uncomment to run Postgres alongside the app rather than using a managed
+# database. Point DATABASE_URL at postgres://acs:<password>@acs-db/acs_production.
+# accessories:
+#   db:
+#     image: postgres:17
+#     host: 192.168.0.1
+#     port: "127.0.0.1:5432:5432"
+#     env:
+#       clear:
+#         POSTGRES_USER: acs
+#         POSTGRES_DB: acs_production
+#       secret:
+#         - POSTGRES_PASSWORD
+#     directories:
+#       - data:/var/lib/postgresql/data

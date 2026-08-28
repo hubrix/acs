@@ -1,0 +1,3 @@
+<% unless @requests_in_progress.blank? %>
+  <%= render :partial => 'requests/table', :locals => { :requests => @requests_in_progress, :caption => 'Requests in Progress' } %>
+<% end %>

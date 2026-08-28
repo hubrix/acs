@@ -1,0 +1,15 @@
+<p><%= @access_request.resource_owner_approved_permissions.first.approved_by_resource_owner_at.strftime("%Y-%m-%d %l:%M%P") %></p>
+<p><%= @access_request.resource_owner.full_name %> approved</p>
+<ul>
+  <% @access_request.resource_owner_approved_permissions.each do |permission_request| %>
+    <li><%= permission_request.permission.permission_type.name %></li>
+  <% end %>
+</ul>
+<% unless @access_request.resource_owner_denied_permissions.blank? %>
+<p>and denied</p>
+<ul>
+  <% @access_request.resource_owner_denied_permissions.each do |permission_request| %>
+    <li><%= permission_request.permission.permission_type.name %></li>
+  <% end %>
+</ul>
+<% end %>

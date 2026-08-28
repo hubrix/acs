@@ -1,0 +1,14 @@
+<%= @access_request.user.full_name %>,
+<p>Your request for <%= @access_request.permission_types.join(', ') %> access to <%= @access_request.resource.long_name %> has been denied.</p>
+<p>The access request has the following notes:
+<ol>
+<% @access_request.notes.each do |note| %>
+  <li><%= note.user.full_name %>: <%= note.body %></li>
+<% end %>
+</ol>
+</p>
+<p>Please speak with <%= @access_request.manager.full_name %> if you think this is in error.</p>
+
+Thanks,
+The ACS Team.
+

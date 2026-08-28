@@ -1,0 +1,23 @@
+<h3>Editing Resource Group</h3>
+<%= link_to 'New permission', new_admin_resource_group_permission_type_path(@resource_group), :class => 'new_obj_link awesome_button' %>
+<%= render 'form' %>
+
+<fieldset class="chunker_container">
+  <ul class="top_level_chunk">
+    <li class="resource_groups">
+      <h5>Permission Types</h5>
+      <ul>
+        <% @permission_types.to_a.chunker.each do |row| %>
+          <li class="piece_of_chunk_container">
+            <% row.each do |permission_type| %>
+              <% next if permission_type.nil? %>
+              <div class="piece_of_chunk">
+                <%= permission_type.name %>              
+              </div>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    </li>
+  </ul>
+</fieldset>

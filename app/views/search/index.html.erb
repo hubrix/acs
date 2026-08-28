@@ -1,0 +1,6 @@
+<h1><%= pluralize(@results.size, "Search Result") %> for <%= @query %></h1>
+
+<% @results_grouping.each_pair do |klass, results| %>
+  <%= render partial: "admin/#{klass.to_s.tableize}/table",
+             locals: { items: results, item_type: klass.to_s.titleize } %>
+<% end %>

@@ -1,0 +1,18 @@
+<div class="field">
+  <%= f.label :department_id %>
+  <%= f.select :department_id, Department.alphabetical.all.map{|d| [d.name, d.id]} %>
+</div>
+<div class="field">
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+</div>
+<div class="field">
+  <%= f.label :lawson_code %>
+  <%= f.text_field :lawson_cd %>
+</div>
+<div class="field">
+  <%= f.label :current_state %>
+  <p class="<%= 'deactivated' if @job.deactivated? %>">
+    <%= @job.current_state %>
+  </p>
+</div>

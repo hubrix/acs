@@ -1,0 +1,22 @@
+<h3>Editing Email Template Description for <%= @mailer_template.display_path %></h3>
+
+<%= form_for([:admin,@mailer_template]) do |f| %>
+  <% if @mailer_template.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@mailer_template.errors.count, "error") %> prohibited this email template from being saved:</h2>
+      <ul>
+      <% @mailer_template.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  <div class="field">
+  <%= f.label :description %>
+    <%= f.text_area :description %>
+  </div>
+  <div class="actions">
+    <%= f.submit "Update Description", :class => 'awesome_button' %>
+  </div>
+<% end %>

@@ -1,0 +1,28 @@
+<fieldset class="display_info chunker_container">
+  <section class="request_table">
+    <header><%= caption %></header>
+    <table class="awesome_tables request_summary">
+    <tr>
+      <th class="request_date">Created</th>
+      <th>Reason</th>
+      <th>For</th>
+      <th>Creator</th>
+      <th>Resources</th>
+      <th>Status</th>
+      <th></th>
+    </tr>
+    <% requests.each do |request| %>
+      <tr>
+        <td><%= request.created_at.to_fs(:short) %></td>
+        <td class="<%= 'important_thing' if request.for_termination? %>"><%= request.reason %></td>
+        <td><%= request.user.full_name %></td>
+        <td><%= request.created_by.full_name %></td>
+        <td class="listing"><%= render :partial => 'requests/resource_cell', :locals => { :request => request } %></td>
+        <td><%= request.in_progress? ? "#{request.percent_complete}% complete" : request.current_state %></td>
+        <td class="action_arrow"><%= link_to image_tag('icons/bullet_go.png'), request_path(request), :id => "dashboard_request_#{request.id}" %></td>
+      </tr>
+    <% end %>
+    <%= table_info_row requests, :colspan => 10, :item_type => 'Access Request' %>
+    </table>
+  </section>  
+</fieldset>

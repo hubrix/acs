@@ -1,0 +1,11 @@
+<%= @user.full_name %>,
+<p><%= @request.user.full_name %> is requesting access to the following...</p>
+<ul>
+<% @request.access_requests.each do |access_request| %>
+  <li><%= access_request.permission_types.join(', ') %> permissions for <%= access_request.resource.long_name %>.</li>
+<% end %>
+</ul>
+<p>As an owner of one of these resources, please visit <%= @url %> to process the request.</p>
+
+Thanks,
+The ACS Team.

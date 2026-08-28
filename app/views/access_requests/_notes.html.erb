@@ -1,0 +1,38 @@
+<div class="slide_out bottom_slider">
+  <div class="slide_out_section">
+  <h5 class="section_header">Comments</h5>
+  <div class="slide_out_article">
+    <%# @note is an unsaved note built for the form below, so it has to be
+        excluded from the list of existing comments. %>
+    <% saved_notes = @access_request.notes.reject(&:new_record?) %>
+    <% if saved_notes.blank? %>
+      <p>This access request does not have any comments</p>
+    <% else %>
+      <% saved_notes.each do |note| %>
+        <h6><%= note.user.full_name %> commented at <%= note.created_at.to_fs(:short) %></h6>
+        <p><%= note.body %></p>
+      <% end %>
+    <% end %>
+  </div>
+  </div>
+  <% unless (@access_request.waiting_for_manager? && @access_request.manager == current_user) || (@access_request.waiting_for_resource_owner? && @access_request.resource_owner == current_user) %>
+  <div class="slide_out_section">
+  <h5 class="section_header">Add a Comment</h5>
+    <div class="slide_out_article" id="access_request_note">
+      <% if @access_request.notes_are_disabled? %>
+        <p>Comments are disabled for access requests that were completed more than 15 minutes ago</p>
+      <% else %>
+        <%= form_for [@access_request,@note] do |f| %>
+          <div class="field">
+            <%= f.text_area :body %>
+          </div>
+          <div class="actions">
+            <button class="button centerish" type="submit"><span class="comment icon"></span>Create Note</button>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+  <% end %>
+</div>
+</div>

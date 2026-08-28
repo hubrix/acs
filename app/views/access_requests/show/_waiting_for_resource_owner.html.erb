@@ -1,0 +1,39 @@
+<%= form_for :access_request, :url => resource_owner_approval_access_request_path(@access_request) do |f| %>
+  <% if @access_request.errors.any? %>
+    <div id="error_explanation" class="sl">
+      <h2>Oops! Your request couldn't be saved.</h2>
+      <ul>
+      <% @access_request.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <table class="awesome_tables inside_slider">
+    <tr>
+      <th></th>
+      <th class="single_object">Approve</th>
+      <th class="single_object">Deny</th>
+    </tr>
+    <% @access_request.manager_approved_permissions.each do |pr| %>      
+      <tr>
+        <td>
+          <%= @access_request.request_action %> <%= pr.permission.permission_type.name %> access to <%= @access_request.resource.name %> <%= @access_request.resource.resource_group.name %>
+        </td>
+        <td class="single_object approve_request">
+          <%= radio_button_tag "access_request[resource_owner_approval_attributes][#{pr.id}][approved]", true, pr.approved_by_resource_owner? %>
+        </td>
+        <td class="single_object decline_request">
+          <%= radio_button_tag "access_request[resource_owner_approval_attributes][#{pr.id}][approved]", false, !pr.approved_by_resource_owner.nil? && !pr.approved_by_resource_owner? %>
+        </td>
+      </tr>
+    <% end %>
+    <tr>
+      <td colspan="3" class="noteable">
+        <%= label_tag "access_request_notes_attributes_body", "Note", :class => 'resource_label' %>
+        <%= text_area_tag "access_request[notes_attributes][][body]", '', :placeholder => 'A note is required' %>
+      </td>
+    </tr>
+  </table>  
+  <button type="submit" class="centerish button"><span class="check icon"></span>Process Request</button>
+<% end %>

@@ -1,0 +1,6 @@
+<%= @user.full_name %>,
+<p><%= @request.created_by.full_name %> has requested to terminate <%= @request.user.full_name %>.</p>
+<p>Please visit <%= @url %> to start processing the <%= @request.access_requests.size %> access_requests needed to remove all access.</p>
+
+Thanks,
+The ACS Team.

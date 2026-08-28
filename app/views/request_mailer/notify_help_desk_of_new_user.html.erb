@@ -1,0 +1,6 @@
+<%= @user.full_name %>,
+<p><%= @request.created_by.full_name %> has created a new user with <%= @request.access_requests.size %> access requests.</p>
+<p>Please visit <%= @url %> to start processing the new hire request for <%= @request.user.full_name %>.</p>
+
+Thanks,
+The ACS Team.

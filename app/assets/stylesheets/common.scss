@@ -1,0 +1,147 @@
+// Messages, validation errors and the shared shape helpers.
+//
+// The `.round*` classes are applied directly in the views (the navigation and
+// several panels ask for `medium_round_top` and friends), so they keep their
+// names -- but they now draw from the shared radius scale instead of each
+// carrying its own -moz-/-webkit- pair.
+
+@use 'tokens' as *;
+
+// -- flash messages -------------------------------------------------------
+// Rendered by the layout as `<div class="msg notice">`. A coloured rule down
+// the leading edge reads faster than a full tinted box.
+.msg {
+  margin: 0 0 1rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid $border;
+  border-left-width: 4px;
+  border-radius: $radius;
+  background-color: $surface;
+  color: $ink-body;
+  font-size: $text-sm;
+  box-shadow: $shadow-sm;
+}
+
+.warning {
+  border-color: $warn-line;
+  border-left-color: $warn;
+  background-color: $warn-soft;
+  color: $warn;
+}
+
+.info {
+  border-color: $info-line;
+  border-left-color: $info;
+  background-color: $info-soft;
+  color: $info;
+}
+
+.notice {
+  border-color: $ok-line;
+  border-left-color: $ok;
+  background-color: $ok-soft;
+  color: $ok;
+}
+
+.error {
+  border-color: $bad-line;
+  border-left-color: $bad;
+  background-color: $bad-soft;
+  color: $bad;
+}
+
+// -- validation -----------------------------------------------------------
+#error_explanation {
+  margin-bottom: 1rem;
+  padding: 0.875rem 1rem;
+  border: 1px solid $bad-line;
+  border-left: 4px solid $bad;
+  border-radius: $radius;
+  background-color: $bad-soft;
+  color: $bad;
+
+  h2 {
+    margin: 0;
+    font-size: $text-base;
+    font-weight: 600;
+    color: $bad;
+  }
+
+  ul {
+    margin: 0.5rem 0 0 1.25rem;
+    font-size: $text-sm;
+  }
+
+  li {
+    list-style-type: disc;
+  }
+}
+
+.slider_error {
+  margin-left: 0.5rem;
+  color: $bad;
+}
+
+.fieldHasErrors {
+  border: 1px solid $bad !important;
+  box-shadow: 0 0 0 3px rgba(179, 38, 30, 0.15);
+}
+
+// -- shape helpers used from the markup -----------------------------------
+.round {
+  border-radius: $radius;
+}
+
+.round_top {
+  border-radius: $radius $radius 0 0;
+}
+
+.round_right {
+  border-radius: 0 $radius $radius 0;
+}
+
+.round_left {
+  border-radius: $radius 0 0 $radius;
+}
+
+.round_bottom {
+  border-radius: 0 0 $radius $radius;
+}
+
+.small_round {
+  border-radius: $radius-sm;
+}
+
+.small_round_top {
+  border-radius: $radius-sm $radius-sm 0 0;
+}
+
+.small_round_bottom {
+  border-radius: 0 0 $radius-sm $radius-sm;
+}
+
+.small_round_left {
+  border-radius: $radius-sm 0 0 $radius-sm;
+}
+
+.medium_round {
+  border-radius: $radius;
+}
+
+.medium_round_top {
+  border-radius: $radius $radius 0 0;
+}
+
+.medium_round_bottom {
+  border-radius: 0 0 $radius $radius;
+}
+
+// -- misc -----------------------------------------------------------------
+ul li {
+  list-style-type: none;
+}
+
+.left_text_align {
+  text-align: left;
+  padding-left: 0;
+}

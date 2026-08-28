@@ -1,0 +1,32 @@
+<%= form_tag(preferences_path, method: :patch) do %>
+  <div class="field">
+    <%= label_tag 'preferences_preferred_items_per_page', 'Preferred items per page:' %>
+    <%= select_tag 'preferences[preferred_items_per_page]',
+                   options_for_select([[20, 20], [40, 40], [60, 60], [80, 80], [100, 100]],
+                                      current_user.preferred_items_per_page) %>
+  </div>
+  <% if current_user.manager? %>
+    <div class="field">
+      <%= label_tag 'preferences_preferred_viewable_departments',
+                    'Viewable departments during user creation:' %>
+      <%#
+        Only what was explicitly stored is pre-selected: with nothing saved the
+        list renders unselected, which the note below explains means "all".
+        The id is set by hand because the name ends in [], which Rails would
+        otherwise turn into a trailing underscore.
+      %>
+      <% selected_departments = Array(current_user.preferred_viewable_departments).map(&:to_i) %>
+      <%= select_tag 'preferences[preferred_viewable_departments][]',
+                     options_for_select(Department.alphabetical.map { |d| [d.name, d.id] },
+                                        selected_departments),
+                     multiple: true, id: 'preferences_preferred_viewable_departments' %>
+    </div>
+    <p>
+      <b>Note:</b> All departments are selected by default. Select multiple continuous items with
+      the shift key, and multiple, non-continuous items with the ctrl key
+    </p>
+  <% end %>
+  <div class="field">
+    <%= submit_tag 'Save' %>
+  </div>
+<% end %>

@@ -1,0 +1,9 @@
+<%= @user.full_name %>,
+<p>As an owner of the resource <b><%= @resource.name %></b>. </p>
+<p><%= pluralize(@count, 'access request') %> waiting for resource owner assignment for this resource.</p>
+
+<p>Please visit <%= @url %> to assign and process these requests.</p>
+
+Thanks,
+The ACS Team.
+

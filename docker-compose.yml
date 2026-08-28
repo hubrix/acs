@@ -1,0 +1,46 @@
+# Runs the app and a Postgres 17 with nothing installed on the host beyond
+# Docker:
+#
+#   docker compose up --build
+#   docker compose exec web bin/rails db:seed
+#
+# Then open http://localhost:3000 and log in as admin / asdfasdf.
+services:
+  db:
+    image: postgres:17
+    environment:
+      POSTGRES_USER: acs
+      POSTGRES_PASSWORD: acs
+      POSTGRES_DB: acs_development
+    ports:
+      - "5433:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U acs"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  web:
+    build:
+      context: .
+      target: build
+    command: bash -c "bin/rails db:prepare && bin/rails dartsass:build && bin/rails server -b 0.0.0.0 -p 3000"
+    environment:
+      RAILS_ENV: development
+      DATABASE_HOST: db
+      DATABASE_PORT: 5432
+      DATABASE_USER: acs
+      DATABASE_PASSWORD: acs
+      BUNDLE_WITHOUT: ""
+    volumes:
+      - .:/rails
+    ports:
+      - "3000:3000"
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  pgdata:

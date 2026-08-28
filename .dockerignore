@@ -1,0 +1,38 @@
+# Git
+.git/
+.gitignore
+
+# Dependencies fetched during build
+/.bundle/
+/vendor/bundle/
+/node_modules/
+
+# Runtime output
+/log/*
+/tmp/*
+!/log/.keep
+!/tmp/.keep
+/tmp/pids/*
+!/tmp/pids/.keep
+/storage/*
+!/storage/.keep
+/public/assets
+
+# Local configuration and secrets
+/config/master.key
+/config/credentials/*.key
+/config/database.yml
+/config/app.yml
+/config/deploy.yml
+.env
+.env.*
+
+# Tests
+/spec/
+/features/
+/.rspec
+
+# Editors / OS
+.DS_Store
+.idea/
+/doc/

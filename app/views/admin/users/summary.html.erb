@@ -1,0 +1,29 @@
+<div class="slide_out">
+<div class="slide_out_section">
+<h1 class="section_header">CSV Import Summary</h1>
+<% @results.each_with_index do |user,idx| %>
+      <div class="slide_out_article">
+      <p>Line <strong><%=h @validity[idx][0] %></strong>; Is line format valid? <strong><%=h @validity[idx][1]%></strong></p>
+      <table class='awesome_tables'>
+        <tr>
+          <% App.csv[@type].each do |hd| %>
+            <th><%=h hd.to_s.titleize %></th>
+          <% end %>
+          <th></th>
+        </tr>
+        <tr>
+          <% @file[idx].each do |col| %>
+            <td><%=h col %></td>
+          <% end %>
+          <td><% if user.is_a?(User) -%><%= link_to image_tag('icons/bullet_go.png'), user, :id => "users_#{user.id}" %><% end -%></td>
+        </tr>
+      </table>
+      <p><strong>Import status:</strong> <%= import_result(user) %></p>
+      <% if user.is_a?(User) %>
+      <%= render :partial => 'access_requests/table', :locals => {:access_requests => user.access_requests.not_completed, :caption => "Active Access Requests" } %>
+      <% end%>
+</div>
+<%end%>
+</div>
+</div>
+

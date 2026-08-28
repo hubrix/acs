@@ -1,0 +1,37 @@
+<div class="slide_out">
+  <div class="slide_out_section">
+    <h5 class="section_header"><strong>Quick Note About Importing Employees</strong></h5>
+    <div class="slide_out_article">
+      <p>The csv importer only accepts csv files. Excel spreadsheets will not work. You will need to export your excel file as a csv file.</p>
+      <p>Select <strong>backfill</strong> to add employees who already exist. Use the format below to backfill an employee:</p>
+      <pre>first_name, last_name, login, start_date, department_name, job_itle, manager_login, employment_type</pre>
+      <p>Select <strong>user</strong> to add new employees. Use the format below for a new employee:</p>
+      <pre>first_name, last_name, start_date, department_name, job_title, manager_login, employment_type</pre>
+      <% unless App.users[:import_helper_url].blank? %>
+        <p>For a list of valid Department Names and Job Titles, please see this wiki page:<br><%= link_to App.users[:import_helper_url], App.users[:import_helper_url] %></p>
+      <% end %>
+    </div>
+  </div>
+    <div class="slide_out_section">
+    <h5 class="section_header"><strong>Import Employees via CSV</strong></h5>
+    <%= form_for(:upload, :url => upload_admin_users_path, :html => { :multipart => true } ) do |fa| %>
+      <div id="importer_form" class="slide_out_article fix_top_margin">
+        <ul>
+          <li>
+          Upload from CSV : <%= select(:upload, :filetype, App.csv.keys, :prompt => true)%>
+            <%= fa.file_field :file %>
+          </li>
+          <li class="noteable">
+            <div>
+            <%= label_tag "Note", "Note", :class => 'fix_left_margin'%>
+            <%= text_area_tag "note", "", :placeholder => 'A note is required...' %>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="slider_button">
+        <button type="submit" class="centerish button"><span class="user icon"></span>Import Users</button>
+      </div>
+    <% end %>
+  </div>
+</div>

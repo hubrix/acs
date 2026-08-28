@@ -1,0 +1,3 @@
+<% unless @requests_for_my_resources.blank? %>
+  <%= render :partial => 'requests/table', :locals => { :requests => @requests_for_my_resources, :caption => 'Requests Needing Resource Owner Approval' } %>
+<% end %>

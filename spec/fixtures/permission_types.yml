@@ -1,0 +1,12 @@
+portal_executive:
+  name: executive
+  resource_group: portal_access
+portal_admin:
+  name: admin
+  resource_group: portal_access
+application_access:
+  name: access
+  resource_group: application_access
+application_admin:
+  name: admin
+  resource_group: application_access

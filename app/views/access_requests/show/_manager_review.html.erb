@@ -1,0 +1,15 @@
+<section>
+  <h5>Manager Review</h5>
+  <% if @access_request.approved_by_manager? %>
+    <ul>
+      <% @access_request.permission_requests.each do |pr| %>
+        <li><%= pr.approved_by_manager_at.to_fs(:long) %> - <%= pr.access_request.manager.full_name %> <%= pr.approved_by_manager? ? 'approved' : 'denied' %> <%= pr.permission.permission_type.name %> request.</li>
+      <% end %>
+    </ul>
+  <% elsif @access_request.manager_denied_all? %>
+    <p><%= @access_request.user.manager.full_name %> has denied this request.</p>
+  <% else %>
+    <p><%= @access_request.user.manager.full_name %>, has not yet reviewed this request.</p>
+  <% end %>
+</section>
+

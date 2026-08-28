@@ -1,0 +1,95 @@
+dengle_us_portal:
+  request: dengle_us_portal
+  resource: us_portal
+  request_action: grant
+  current_state: waiting_for_manager
+  manager: rcooper
+  current_worker: rcooper
+  position: 1
+dengle_uk_portal_resource_owner:
+  request: dengle_uk_portal_resource_owner
+  resource: uk_portal
+  request_action: grant
+  current_state: waiting_for_resource_owner
+  manager: rcooper
+  resource_owner: timothyho
+  current_worker: timothyho
+  position: 1
+dengle_wiki_help_desk:
+  request: dengle_wiki_help_desk
+  resource: wiki
+  request_action: grant
+  current_state: waiting_for_help_desk_assignment
+  manager: rcooper
+  resource_owner: mgroulx
+  position: 1
+dengle_revoke_acunote_help_desk:
+  request: dengle_revoke_acunote_help_desk
+  resource: acunote
+  request_action: revoke
+  current_state: waiting_for_help_desk_assignment
+  manager: rcooper
+  position: 1
+rcooper_wiki_help_desk:
+  request: rcooper_wiki_help_desk
+  resource: wiki
+  request_action: grant
+  current_state: waiting_for_help_desk
+  manager: timothyho
+  resource_owner: mgroulx
+  help_desk: mstreet
+  position: 1
+alee_cyberark_admin:
+  request: alee_cyberark_admin
+  resource: cyberark
+  request_action: grant
+  current_state: denied
+  manager: odolchenko
+  completed_at: <%= Time.now - 30.minutes %>
+  position: 1
+rcooper_acunote_admin:
+  request: rcooper_acunote_admin
+  resource: acunote
+  request_action: grant
+  current_state: waiting_for_resource_owner_assignment
+  manager: timothyho
+  position: 1
+dengle_jira_admin_complete:
+  request: dengle_jira_admin_complete
+  manager: rcooper
+  resource_owner: mgroulx
+  help_desk: mstreet
+  completed_by: mstreet
+  completed_at: <%= Time.now - 10 %>
+  resource: jira
+  request_action: grant
+  current_state: completed
+  position: 1
+jfaceless_wiki_waiting_for_help_desk_assignment:
+  request: jfaceless_wiki_waiting_for_help_desk_assignment
+  resource: wiki
+  request_action: grant
+  current_state: waiting_for_help_desk_assignment
+  position: 1
+egarret_wiki_canceled:
+  request: egarret_wiki_canceled
+  resource: wiki
+  request_action: grant
+  manager: odolchenko
+  current_state: canceled
+  position: 1
+holajuwon_wiki_waiting_for_help_desk_assignment:
+  request: holajuwon_wiki_waiting_for_help_desk_assignment
+  resource: wiki
+  request_action: revoke
+  manager: odolchenko
+  current_state: waiting_for_help_desk_assignment
+  position: 1
+jserrano_wiki_waiting_for_manager:
+  request: jserrano_wiki_waiting_for_manager
+  resource: wiki
+  request_action: grant
+  manager: mstreet
+  current_state: waiting_for_manager
+  current_worker: mstreet
+  position: 1

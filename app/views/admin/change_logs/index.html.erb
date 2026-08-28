@@ -1,0 +1,30 @@
+<h1>Change Log</h1>
+
+<table class="awesome_tables">
+  <tr>
+    <th>Date</th>
+    <th>Type</th>
+    <th>What Changed</th>
+    <th>Old Value</th>
+    <th>New Value</th>
+    <th>Changed By</th>
+    <th>Revision</th>
+  </tr>
+  <% @changes.each do |change| %>
+    <tr>
+      <td><%= change.created_at.to_fs(:short) %></td>
+      <td><%= change_log_item(change) %></td>
+      <td><%= change.attribute_name %></td>
+      <td><%= change.old_value %></td>
+      <td><%= change.value %></td>
+      <td><%= change_log_whodunnit(change) %></td>
+      <td><%= change.revision %></td>
+    </tr>
+  <% end %>
+  <tr class="pagination">
+    <td class="pagination_links" colspan="7">
+      <div class="pagination_info"><%= page_entries_info @changes %></div>
+      <%= will_paginate @changes %>
+    </td>
+  </tr>
+</table>

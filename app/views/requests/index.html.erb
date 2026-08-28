@@ -1,0 +1,27 @@
+<div class="slide_out">
+  <div class="slide_out_section">
+    <% unless @user.blank? %>
+      <h5 class="section_header">Requests for <%= @user.full_name %></h5>
+      <div class="slide_out_article">
+        <p>On this page, you are viewing all requests that were...</p>
+        <ul>
+          <li>Created by <%= @user == current_user ? 'you' : @user.full_name %></li>
+          <li>Created for <%= @user == current_user ? 'you' : @user.full_name %></li>
+          <% if @user.manager? %>
+            <li>Requests approved as a manager by <%= @user == current_user ? 'you' : @user.full_name %></li>
+          <% end %>
+          <% if @user.help_desk? %>
+            <li>Requests completed by <%= @user == current_user ? 'you' : @user.full_name %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% else %>
+      <h5 class="section_header">Requests Archive</h5>
+      <div class="slide_out_article">
+        <p>For your viewing pleasure, this is an archive of all access requests.</p>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<%= render :partial => 'requests/table', :locals => { :requests => @requests, :caption => 'Requests' } %>

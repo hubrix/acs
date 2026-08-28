@@ -1,0 +1,33 @@
+<fieldset class="display_info chunker_container">
+
+  <section class="request_table">
+    <header><%= caption %></header>
+    <table class="awesome_tables access_request_summary">
+    <tr>
+      <th>Action</th>
+      <th>Resource</th>
+      <th>Permissions</th>
+      <th>Current Assignee</th>
+      <th class="wide14">Status</th>
+      <th></th>
+    </tr>
+    <% access_requests.each do |access_request| %>
+      <tr class="<%= 'deactivated' if access_request.should_warn?(current_user) %>">
+        <td class="<%= 'important_thing' if access_request.request.for_termination? %>"><%= access_request.request_action %></td>
+        <td><%= access_request.try(:resource).try(:name) %></td>
+        <td><%= access_request.permission_types.join(', ') %></td>
+        <td><%= access_request.try(:current_worker).try(:full_name) %></td>
+        <td>
+          <% if access_request.completed? %>
+            completed<%= " at #{access_request.completed_at.to_fs(:short)}" unless access_request.completed_at.blank? %>
+          <% else %>
+            <%= access_request.current_state %>
+          <% end %>
+        </td>
+        <td class="action_arrow"><%= link_to image_tag('icons/bullet_go.png'), request_access_request_path(@request, access_request), :id => "dashboard_access_request_#{access_request.id}" %></td>
+      </tr>
+    <% end %>
+    <%= table_info_row access_requests, :colspan => 6, :item_type => 'Access Request' %>
+    </table>
+  </section>  
+</fieldset>

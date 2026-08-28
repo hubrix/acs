@@ -1,0 +1,17 @@
+<% unless @in_flight_users.blank? %>
+  <table class="awesome_tables access_request_summary">
+  <caption>In Flight Employees</caption>
+  <tr>
+    <th>Employee</th>
+    <th>Submitted On</th>
+    <th>Requests Remaining</th>
+  </tr>
+  <% @in_flight_users.each do |in_flight_user| %>
+    <tr>
+      <td><%= link_to in_flight_user.full_name, user_path(in_flight_user) %> </td>
+      <td><%= in_flight_user.created_at.to_fs(:short) %></td>
+      <td><%= in_flight_user.access_requests.not_completed.size %></td>
+    </tr>
+  <% end %>
+  </table>
+<% end %>

@@ -1,0 +1,19 @@
+<% if current_user.can_manage?(@user) %>
+  <%= render :partial => 'admin/users/full_form', :locals => { :user => @user } %>
+<% else %>
+  <%= render :partial => 'users/info', :locals => { :user => @user } %>
+<% end %>
+<%= link_to "Requests archive", user_requests_path(@user) %>
+<%= render :partial => 'users/permissions', :locals => { :user => @user } %>
+
+<% unless current_user.can_manage?(@user) %>
+  <%= render :partial => 'users/resources', :locals => { :user => @user} %>
+<% end %>
+
+<% unless @user.requests.not_completed.blank? %>
+  <%= render :partial => 'requests/table', :locals => {:requests => @user.requests.not_completed, :caption => "Active Requests" } %>  
+<% end %>
+
+<% unless @descendants.blank? %>
+  <%= render :partial => 'users/table', :locals => { :users => @descendants, :caption => 'Subordinate' } %>
+<% end %>

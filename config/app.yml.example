@@ -1,0 +1,148 @@
+defaults: &defaults
+  home_image: acs.png
+  email: &email
+    from: acsnotification@example.com
+    host: localhost:3000
+    protocol: http
+    exceptions:
+      prefix: '[ACS EXCEPTION] '
+      recipients:
+        - acsdevelopment@example.com
+    smtp:
+      address: localhost
+      domain: example.com
+
+  # Authentication backends. More than one may be enabled at once: the login
+  # page shows the password form plus a button per redirect backend.
+  #
+  # A backend never creates users. Someone signing in through an identity
+  # provider is matched to an existing active ACS user by email and the link is
+  # remembered; if no user matches, the sign-in is refused.
+  auth: &auth
+    # "actor-target" logins, which authenticate as `actor` but start the
+    # session as `target`. A support convenience -- leave off in production.
+    # The actor must be an administrator and the target must be active; an
+    # existing login always wins over the split.
+    impersonation: false
+
+    backends: &auth_backends
+      # Username and password held in the ACS users table. Worth keeping
+      # enabled as a break-glass path for when the identity provider is down.
+      local:
+        enabled: true
+        name: Password
+
+      # Google Workspace. Requires an OAuth client (client_id/client_secret)
+      # with https://your-host/auth/google_workspace/callback registered as an
+      # authorised redirect URI.
+      google_workspace:
+        enabled: false
+        name: Google
+        client_id: <%= ENV['GOOGLE_CLIENT_ID'] %>
+        client_secret: <%= ENV['GOOGLE_CLIENT_SECRET'] %>
+        # Only accounts in this Workspace domain may sign in. Checked against
+        # the hd claim on the way back, not just passed to Google as a hint.
+        hosted_domain: example.com
+
+        # Looks up Workspace accounts when generating a login for a new
+        # employee, so ACS knows "jdoe" is taken even before that person exists
+        # here. Needs a service account with domain-wide delegation granted
+        # .../auth/admin.directory.user.readonly, plus an admin to impersonate.
+        directory:
+          enabled: false
+          impersonate: directory-reader@example.com
+          # The JSON key itself, or a path to it.
+          service_account_json: <%= ENV['GOOGLE_SERVICE_ACCOUNT_JSON'] %>
+
+      # Any other OpenID Connect provider: Okta, Entra ID, Auth0, Keycloak.
+      # Configuration only -- no new code needed.
+      openid_connect:
+        enabled: false
+        name: Single sign-on
+        issuer: <%= ENV['OIDC_ISSUER'] %>
+        client_id: <%= ENV['OIDC_CLIENT_ID'] %>
+        client_secret: <%= ENV['OIDC_CLIENT_SECRET'] %>
+        discovery: true
+        scope: [openid, email, profile]
+        # Optional allow-list; empty means any address the provider vouches for.
+        allowed_email_domains: []
+
+  csv:
+    user: [first_name, last_name, start_date, department, job_title, manager, type]
+    backfill: [first_name, last_name, login, start_date, department, job_title, manager, type]
+  users:
+    import_helper_url: https://wiki.example.com/
+  companies:
+    example1:
+      domain: example1.com
+    example2:
+      domain: example2.com
+
+development:
+  <<: *defaults
+  auth:
+    <<: *auth
+    impersonation: true
+
+test:
+  <<: *defaults
+  auth:
+    <<: *auth
+    impersonation: true
+    # Both redirect backends are switched on with dummy credentials so the
+    # suite covers multi-backend rendering and the callback flow. OmniAuth is
+    # put in test mode by spec/support/omniauth.rb, so nothing leaves the box.
+    backends:
+      <<: *auth_backends
+      google_workspace:
+        enabled: true
+        name: Google
+        client_id: test-google-client-id
+        client_secret: test-google-client-secret
+        hosted_domain: example.com
+      openid_connect:
+        enabled: true
+        name: Single sign-on
+        issuer: https://sso.example.com
+        client_id: test-oidc-client-id
+        client_secret: test-oidc-client-secret
+        discovery: false
+        allowed_email_domains: [example.com]
+
+cucumber:
+  <<: *defaults
+  auth:
+    <<: *auth
+    impersonation: true
+    # Both redirect backends are switched on with dummy credentials so the
+    # suite covers multi-backend rendering and the callback flow. OmniAuth is
+    # put in test mode by spec/support/omniauth.rb, so nothing leaves the box.
+    backends:
+      <<: *auth_backends
+      google_workspace:
+        enabled: true
+        name: Google
+        client_id: test-google-client-id
+        client_secret: test-google-client-secret
+        hosted_domain: example.com
+      openid_connect:
+        enabled: true
+        name: Single sign-on
+        issuer: https://sso.example.com
+        client_id: test-oidc-client-id
+        client_secret: test-oidc-client-secret
+        discovery: false
+        allowed_email_domains: [example.com]
+
+staging:
+  <<: *defaults
+
+production:
+  <<: *defaults
+  email:
+    <<: *email
+    host: acs.example.com
+    protocol: https
+    smtp:
+      address: mail.example.com
+      domain: example.com

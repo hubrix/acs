@@ -1,0 +1,30 @@
+us_portal:
+  name: US Portal
+  resource_group: portal_access
+  users: mgroulx, mstreet
+  current_state: active
+uk_portal:
+  name: UK Portal
+  resource_group: portal_access
+  users: timothyho
+  current_state: active
+cyberark:
+  name: Cyberark
+  resource_group: application_access
+  users: mgroulx
+  current_state: active
+wiki:
+  name: Wiki
+  resource_group: application_access
+  users: mgroulx
+  current_state: active
+jira:
+  name: Jira
+  resource_group: application_access
+  users: mgroulx
+  current_state: active
+acunote:
+  name: Acunote
+  resource_group: application_access
+  users: mgroulx
+  current_state: active

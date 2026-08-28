@@ -1,0 +1,10 @@
+<%= @access_request.user.full_name %>,
+<p><%= @access_request.manager.full_name %> has processed your access request.</p>
+<ul>
+<% @access_request.permission_requests.each do |pr| %>
+  <li><%= pr.approved_by_manager_at.to_s %> - <%= pr.access_request.manager.full_name %> <%= pr.approved_by_manager? ? 'granted' : 'denied' %> <%= pr.permission.permission_type.name %> access to <%= @access_request.resource.long_name %>.</li>
+<% end %>
+</ul>
+
+Thanks,
+The ACS Team.

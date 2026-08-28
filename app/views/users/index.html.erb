@@ -1,0 +1,51 @@
+<h1>Find Employees</h1>
+
+<%= form_tag users_path, :method => :get, :id => 'search_users' do %>
+  <div class="user_fields columnize">
+    <div class="field">
+      <%= label_tag :coworker_number %>
+      <%= text_field_tag :coworker_number, params[:coworker_number] %>
+    </div>
+    <div class="field">
+      <%= label_tag :first_name %>
+      <%= text_field_tag :first_name, params[:first_name] %>
+    </div>
+    <div class="field">
+      <%= label_tag :last_name %>
+      <%= text_field_tag :last_name, params[:last_name] %>
+    </div>
+    <div class="field">
+      <%= label_tag :login_name %>
+      <%= text_field_tag :login_name, params[:login_name] %>
+    </div>
+    <div class="field">
+      <%= label_tag :start_date %>
+      <%= text_field_tag :start_date, params[:start_date] %>
+    </div>
+    <div class="field">
+      <%= label_tag :department_id %>
+      <%= select_tag :department_id, options_for_select([''] + Department.alphabetical.map{ |d| [d.name, d.id] }, params[:department_id]) %>
+    </div>
+    <div class="field">
+      <%= label_tag :manager_id %>
+      <%= select_tag :manager_id, options_for_select([''] + @managers.map{|m| [m.login, m.id]}, params[:manager_id]) %>
+    </div>
+    <div class="field">
+      <%= label_tag :location_id %>
+      <%= select_tag :location_id, options_for_select([''] + Location.alphabetical.map{ |m| [ m.name, m.id ] }, params[:location_id]) %>
+    </div>
+    <div class="field">
+      <%= label_tag :job_id %>
+      <%= select_tag :job_id, raw("<option></option>") + option_groups_from_collection_for_select(Department.alphabetical, :jobs, :name, :id, :name, params[:job_id]) %>
+    </div>
+    <div class="field">
+      <%= label_tag :company_id %>
+      <%= select_tag :company_id, options_for_select([''] + Company.all.map{|c| [c.name, c.id]}, params[:company_id]) %>
+    </div>
+    <div class="actions">
+      <button type="submit" class="centerish button"><span class="magnifier icon"></span>Search</button>
+    </div>
+  </div>
+<% end %>
+
+<%= render :partial => 'users/table', :locals => { :users => @users, :caption => 'Employee' } %>

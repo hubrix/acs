@@ -1,0 +1,46 @@
+<% unless @request.for?(current_user) %>
+  <h1>Selecting Permissions for <%= @request.user.full_name %></h1>
+<% end %>
+<%= form_tag(access_requests_path, :method=> :post, :class => 'permission_selector') do %>
+  <%= hidden_field_tag "request[user_id]", @request.user.id %>
+  <% @access_requests.each_with_index do |access_request,idx| %>
+    <% if access_request.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(access_request.errors.count, "error") %> prohibited this access_request from being saved:</h2>
+        <ul>
+        <% access_request.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <fieldset>
+      <legend><span>Select permissions for <%= access_request.resource.name %> <%= access_request.resource.resource_group.name %></span></legend>
+      <%= hidden_field_tag "access_request[#{idx}][resource_id]", access_request.resource.id %>
+      <ul class="resource_list">
+        <% access_request.resource.active_permissions.each do |permission| %>
+          <li class="resource">
+            <%= label_tag "access_request_permission_requests_attributes_permission_id_#{permission.id}", permission.permission_type.name, :class => 'resource_label' %>
+            <%= check_box_tag "access_request[#{idx}][permission_requests_attributes][][permission_id]", permission.id, @request.user.permissions.include?(permission), :id => "access_request_permission_requests_attributes_permission_id_#{permission.id}", :disabled => should_be_disabled?(@request, permission) %>
+            <% if @request.user.permissions.include?(permission) %>
+              <% if @request.for?(current_user) %>
+                You already have this permission
+              <% else %>
+                <%= @request.user.full_name %> already has this permission
+              <% end %>
+            <% end %>
+          </li>
+        <% end %>
+        <li class="noteable">
+          <%= label_tag "access_request_#{idx}_notes_attributes_body", "Note", :class => 'resource_label' %>
+          <%= text_area_tag "access_request[#{idx}][notes_attributes][body]", '', :placeholder => 'A note is required' %>
+          <%= hidden_field_tag "access_request[#{idx}][notes_attributes][user_id]", current_user.id %>
+        </li>
+      </ul>
+    </fieldset>
+  <% end %>
+  <div class="actions">
+    <button type="submit" class="centerish button"><span class="plus icon"></span>Request Access</button>
+  </div>
+<% end %>
+

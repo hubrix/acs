@@ -1,0 +1,11 @@
+<article class="request_step initial">
+  <header>Initial request</header>
+  <p><%= @access_request.created_at.strftime("%Y-%m-%d %l:%M%P") %></p>
+  <p><%= @request.created_by.full_name %> requested</p>
+  <ul>
+    <% @access_request.permission_requests.each do |permission_request| %>
+      <li><%= permission_request.permission.permission_type.name %></li>
+    <% end %>
+  </ul>
+  <p>for <%= requestor_in_context(@access_request) %> be <%= access_request_action(@access_request) %>.</p>
+</article>

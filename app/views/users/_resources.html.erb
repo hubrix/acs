@@ -1,0 +1,26 @@
+<fieldset class="display_info chunker_container">
+  <legend>Owned Resources</legend>
+  <% if user.resources.blank? %>
+    <p><%= user.full_name %> is not an owner of any resources</p>
+  <% else %>
+    <ul class="top_level_chunk">
+      <% @resource_groups_with_ownerships.each do |resource_group| %>
+  <li class="resource_groups collapsable">
+    <h5 class="pivot"><%= resource_group.name %></h5>
+    <ul>
+      <% resource_group.resources.includes(:users).owner_is(@user).alphabetical.to_a.chunker.each do |row| %>
+        <li class="piece_of_chunk_container">
+          <% row.each do |resource| %>
+            <% next if resource.nil? %>
+            <div class="piece_of_chunk">
+              <%= resource.name %>
+            </div>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  </li>
+<% end %>
+</ul>
+  <% end %>
+</fieldset>

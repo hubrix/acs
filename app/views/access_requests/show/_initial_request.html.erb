@@ -1,0 +1,6 @@
+<section>
+  <h5>Initial Request</h5>
+  <p>
+    <%= @access_request.created_at.to_fs(:long) %> - <%= @access_request.created_by.full_name %> requested <%= permissions_and_resource(@access_request) %> be <%= access_request_action(@access_request) %>.
+  </p>
+</section>

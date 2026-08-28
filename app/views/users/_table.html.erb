@@ -1,0 +1,46 @@
+<fieldset class="display_info chunker_container">
+  <section class="request_table">
+    <header><%= pluralize(users.respond_to?(:total_entries) ? users.total_entries : users.size, caption) %></header>
+    <table class="awesome_tables access_request_summary">
+      <tr>
+        <th>Login</th>
+        <th>Coworker #</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Start Date</th>
+        <th>Department</th>
+        <th>Job Title</th>
+        <th>Manager</th>
+        <th>Location</th>
+        <th></th>
+      </tr>
+      <% users.each do |user| %>
+        <tr>
+          <td><%= user.login %></td>
+          <td><%= user.coworker_number %></td>
+          <td><%= user.first_name %></td>
+          <td><%= user.last_name %></td>
+          <td><%= user.start_date %></td>
+          <td>
+            <% if current_user.admin? %>
+              <%= link_to user.job.department.name, edit_admin_department_path(user.job.department) %>
+            <% else %>
+              <%= user.job.department.name %>
+            <% end %>
+          </td>
+          <td>
+            <% if current_user.admin? %>
+              <%= link_to user.job.name, edit_admin_job_path(user.job) %>
+            <% else %>
+              <%= user.job.name %>
+            <% end %>
+          </td>
+          <td><%= link_to user.try(:manager).try(:login), user.try(:manager) %></td>
+          <td><%= user.job.department.location.name %></td>
+          <td><%= link_to image_tag('icons/bullet_go.png'), user_path(user), :id => "users_#{user.id}" %></td>
+        </tr>
+      <% end %>
+      <%= table_info_row users, :colspan => 10, :item_type => 'User' %>
+    </table>
+  </section>  
+</fieldset>

@@ -1,0 +1,6 @@
+<section id="access_request_workflow" class="slide_out_article">
+  <%= render :partial => 'access_requests/boxes/initial_request' %>
+  <%= render :partial => 'access_requests/boxes/box', :locals => { :box => :manager } %>
+  <%= render :partial => 'access_requests/boxes/box', :locals => { :box => :resource_owner } %>
+  <%= render :partial => 'access_requests/boxes/help_desk_progress' %>
+</section>

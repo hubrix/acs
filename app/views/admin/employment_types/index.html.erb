@@ -1,0 +1,17 @@
+<%= link_to 'New Employment type', new_admin_employment_type_path, :class => 'new_obj_link awesome_button' %>
+<table class="awesome_tables">
+  <caption>Employment Types</caption>
+  <tr>
+    <th>Name</th>
+    <th>Employees</th>
+  </tr>
+
+<% @employment_types.each do |employment_type| %>
+  <tr>
+    <td><%= employment_type.name %></td>
+    <td><%= link_to "#{employment_type.users.count}", admin_employment_type_users_path(employment_type) %></td>
+  </tr>
+<% end %>
+</table>
+
+

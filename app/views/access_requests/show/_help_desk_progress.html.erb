@@ -1,0 +1,12 @@
+<section>
+  <h5>Help Desk Progress</h5>
+  <% if @access_request.waiting_for_help_desk_assignment? %>
+    <p>This request is still waiting for assignment from a help desk member.</p>
+  <% elsif @access_request.waiting_for_help_desk? %>
+    <p><%= @access_request.updated_at.to_fs(:long) %> - <%= @access_request.help_desk.full_name %> is processing this request.</p>
+  <% elsif @access_request.completed? || (@access_request.denied? && @access_request.help_desk) %>
+    <p><%= @access_request.completed_at.to_fs(:long) %> -
+    <%= @access_request.help_desk.full_name %> has processed this request.</p>
+  <% end %>
+</section>
+

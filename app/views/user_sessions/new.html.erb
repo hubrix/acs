@@ -1,0 +1,46 @@
+<div class="single_column">
+  <h1 class="sign_in_title">Sign in</h1>
+  <p class="sign_in_intro">Access Control System</p>
+
+  <% if @redirect_backends.any? %>
+    <div class="sso_options">
+      <% @redirect_backends.each do |backend| %>
+        <%= button_to "Sign in with #{backend.name}", backend.start_path,
+                      method: :post, class: 'awesome_button sso_button',
+                      id: "sign_in_with_#{backend.key}" %>
+      <% end %>
+    </div>
+    <% if @password_backends.any? %>
+      <p class="sso_divider">or sign in with your password</p>
+    <% end %>
+  <% end %>
+
+  <% if @password_backends.any? %>
+    <%= form_for @user_session, url: user_session_path do |f| %>
+      <% if @user_session.errors.any? %>
+        <div id="error_explanation">
+          <h2>Oops! You must have entered your username or password incorrectly.</h2>
+        </div>
+      <% end %>
+      <div class="field">
+        <%= f.label :login %>
+        <%= f.text_field :login, autofocus: 'true' %>
+      </div>
+      <div class="field">
+        <%= f.label :password %>
+        <%= f.password_field :password %>
+      </div>
+      <div class="remember_me_field">
+        <%= f.check_box :remember_me %>
+        <%= f.label :remember_me, "Remember Me?" %>
+      </div>
+      <div class="actions">
+        <button type="submit" class="centerish button"><span class="rightarrow icon"></span>Login</button>
+      </div>
+    <% end %>
+  <% elsif @redirect_backends.empty? %>
+    <div id="error_explanation">
+      <h2>No sign-in method is configured. Check auth.backends in config/app.yml.</h2>
+    </div>
+  <% end %>
+</div>

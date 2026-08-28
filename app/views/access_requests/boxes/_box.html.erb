@@ -1,0 +1,4 @@
+<article class="request_step <%= @access_request.box_status(box) %>">
+  <header><%= box.to_s.titleize %> Review</header>
+  <%= render :partial => @access_request.path_to_partial(box) %>
+</article>

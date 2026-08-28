@@ -1,0 +1,7 @@
+<%= @user.full_name %>,
+<p><%= @access_request.user.full_name %> is requesting <%= @access_request.permission_types.join(', ') %> access to <%= @access_request.resource.long_name %>.</p>
+<p>Please visit <%= @url %> to process the request.</p>
+
+Thanks,
+The ACS Team.
+

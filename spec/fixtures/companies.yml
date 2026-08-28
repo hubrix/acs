@@ -1,0 +1,6 @@
+example_co:
+  name: Example Co
+  email_domain: example.com
+example_partner:
+  name: Example Partner Co
+  email_domain: example.org

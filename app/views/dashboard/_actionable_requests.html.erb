@@ -1,0 +1,3 @@
+<% unless @actionable_requests.blank? %>
+  <%= render :partial => 'requests/table', :locals => { :requests => @actionable_requests, :caption => 'Current Actionable Requests' } %>
+<% end %>

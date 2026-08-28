@@ -1,0 +1,14 @@
+<table class="awesome_tables">
+  <caption>Resource Groups</caption>
+  <tr>
+    <th>Name</th>
+    <th>Resources</th>
+  </tr>
+  <% items.each do |resource_group| %>
+    <tr>
+      <td><%= link_to resource_group.name, edit_admin_resource_group_path(resource_group) %></td>
+      <td><%= link_to "#{resource_group.resources.size} resources", admin_resource_group_resources_path(resource_group) %></td>
+    </tr>
+  <% end %>
+  <%= table_info_row items, :colspan => 2, :item_type => item_type %>
+</table>

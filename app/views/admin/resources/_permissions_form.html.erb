@@ -1,0 +1,21 @@
+<fieldset class="chunker_container">
+  <legend>Select Permission Types</legend>
+  <ul class="top_level_chunk">
+    <li class="resource_groups">
+      <h5>Permission Types</h5>
+      <ul>
+        <% @permission_type_chunks.to_a.chunker.each do |row| %>
+          <li class="piece_of_chunk_container">
+            <% row.each do |permission_type| %>
+              <% next if permission_type.nil? %>
+              <div class="piece_of_chunk">
+                <%= check_box_tag "resource[active_permission_type_ids][]", permission_type.id, @resource.has_permission_type?(permission_type), :id => "resource_active_permission_type_id_#{permission_type.id}" %>
+                <%= label_tag "resource_active_permission_type_id_#{permission_type.id}", permission_type.name %>              
+              </div>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    </li>
+  </ul>
+</fieldset>

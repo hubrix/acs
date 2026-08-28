@@ -1,0 +1,14 @@
+<%= @user.full_name %>,
+<p>You have <%= pluralize(@count, 'access request') %> requiring your action on one or more of the resources you own:</p>
+<ul>
+<% @resources.each do |resource| %>
+<li> <%= resource %></li>
+<% end %>
+</ul>
+</p>
+
+<p>Please visit <%= @url %> to process these requests.</p>
+
+Thanks,
+The ACS Team.
+

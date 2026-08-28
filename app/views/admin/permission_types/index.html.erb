@@ -1,0 +1,21 @@
+<h1>Permission Types for <%= @resource_group.name %></h1>
+
+<table class="awesome_tables">
+  <tr>
+    <th>Name</th>
+    <th colspan="3"></th>
+  </tr>
+  <% @permission_types.each do |permission_type| %>
+    <tr>
+      <td><%= permission_type.name %></td>
+      <td><%= link_to 'Show', [:admin, @resource_group, permission_type] %></td>
+      <td><%= link_to 'Edit', edit_admin_resource_group_permission_type_path(@resource_group, permission_type) %></td>
+      <td><%= link_to 'Destroy', [:admin, @resource_group, permission_type],
+                      data: { confirm: 'Are you sure?' }, method: :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Permission type', new_admin_resource_group_permission_type_path(@resource_group) %>

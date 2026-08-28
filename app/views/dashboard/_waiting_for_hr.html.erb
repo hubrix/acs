@@ -1,0 +1,13 @@
+<% unless @waiting_for_hr.blank? %>
+  <section>
+  <h3>Users Needing HR Approval</h3>
+  <ul class="activity_feed">
+    <% @waiting_for_hr.each do |user| %>
+      <li>
+      <%= link_to user.full_name, user_path(user)%> <%= user.suspended? ? 'terminated' : 'submitted' %> by: <%= user.suspended? ? terminated_by(user) : submitted_by(user) %>
+      </li>
+    <% end %>
+  </ul>
+  </section>
+<% end %>
+

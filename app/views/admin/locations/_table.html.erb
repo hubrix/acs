@@ -1,0 +1,16 @@
+<table class="awesome_tables">
+  <caption>Locations</caption>
+  <tr>
+    <th>Name</th>
+    <th>Departments</th>
+    <th>Employees</th>
+  </tr>
+  <% items.each do |location| %>
+    <tr>
+      <td><%= link_to location.name, edit_admin_location_path(location) %></td>
+      <td><%= link_to location.departments.size, admin_location_departments_path(location) %></td>
+      <td><%= link_to location.employees.size, admin_location_users_path(location) %></td>
+    </tr>
+  <% end %>
+  <%= table_info_row items, :colspan => 3, :item_type => item_type %>
+</table>

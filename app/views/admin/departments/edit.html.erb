@@ -1,0 +1,7 @@
+<h3>Editing department</h3>
+
+<%= render 'form' %>
+
+<%= render :partial => "admin/jobs/table", :locals => { :items => @department.jobs, :item_type => 'Jobs' } %>
+
+<%= render :partial => "users/table", :locals => { :users => @users, :caption => 'Employee' } %>

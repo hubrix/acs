@@ -1,0 +1,30 @@
+<article class="request_step <%= @access_request.box_status(:help_desk) %>">
+  <header>Help Desk Progress</header>
+
+  <% if @access_request.at_help_desk? %>
+    <% if @access_request.waiting_for_help_desk_assignment? %>
+      <p>This request is waiting for help desk assignment.</p>
+    <% else %>
+    <p><%= @access_request.help_desk.full_name %> is processing this request.</p>
+      <ul>
+        <% @access_request.resource_owner_approved_permissions.each do |permission_request| %>
+          <li><%= permission_request.permission.permission_type.name %></li>
+        <% end %>
+      </ul>
+    <% end %>
+  <% elsif @access_request.completed? %>
+    <p><%= @access_request.completed_at.strftime("%Y-%m-%d %l:%M%P") %></p>
+    <p><%= @access_request.help_desk.full_name %> processed</p>
+    <ul>
+      <% @access_request.final_approved_permissions.each do |permission_request| %>
+        <li><%= permission_request.permission.permission_type.name %></li>
+      <% end %>
+    </ul>
+  <% elsif @access_request.canceled? %>
+    <p>This access request has been canceled.</p>
+  <% elsif @access_request.denied? %>
+    <p>This access request has been denied.</p>
+  <% else %>
+    <p>Waiting for previous steps.</p>
+  <% end %>
+</article>

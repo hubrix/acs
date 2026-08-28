@@ -1,0 +1,30 @@
+<% if @access_request.should_warn?(current_user) %>
+<div id="major_warning" class="slide_out">
+  <p>This access request should not be processed yet. Please wait till the resource owner approves before starting to processing.</p>
+</div>
+<% end %>
+<div class="slide_out">
+  <div class="slide_out_section">
+    <h5 class="section_header"><strong>Access Request for <%= @request.user.full_name %></strong> <span>(<%= link_to @request.user.login, user_path(@request.user) %>) <%= @request.user.job.name %>, <%= @request.user.job.department.name %></span></h5>
+    <div class="slide_out_article">
+      <% if @access_request.request.reason?(:new_hire) %><p id="new_user_warning">New Employee Request! Start Date: <%= @request.user.start_date %></p><% end %>
+      <% if @access_request.request.reason?(:termination) %><p id="termination_warning">Termination Request!<%= ' Be sure to process immediately.' unless @access_request.completed? %></p><% end %>
+      <p class="status_image <%= access_request_status_image(@access_request) %>">Current Status: 
+        <span><%= @access_request.current_state.humanize %></span>
+        <%= " #{@access_request.completed_at.to_fs(:long)} by #{@access_request.completed_by.full_name}" if @access_request.completed? %>
+        <%= ", assigned to #{@access_request.current_worker.full_name}" unless @access_request.current_worker.blank? %></p>
+      <p class="status_image <%= @access_request.revocation? ? 'take_away' : 'add_something' %>">Request Action: <span><%= @access_request.request_action.titleize %> (<%= @request.reason.titleize %>)</span></p>
+      <p class="requested_resource">Resource: <span><%= @access_request.resource.long_name %></span></p>      
+    </div>
+  </div>
+  <div class="slide_out_section">
+    <h5 class="section_header">Current Progress</h5>
+    <%= render :partial => 'access_requests/show/current_status' %>
+    <% unless @access_request.can_only_be_viewed_by?(current_user) %>
+      <%= render :partial => "access_requests/show/#{@access_request.current_state}" %>
+    <% end %>
+  </div>
+</div>
+ 
+<%= render :partial => 'notes' %>
+<%= render :partial => 'action_bar', :locals => { :access_request => @access_request } %>

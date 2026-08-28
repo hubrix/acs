@@ -1,0 +1,8 @@
+<%= @user.full_name %>,
+<p>This is a confirmation email for your records.</p>
+<p>You requested <%= @access_request.permission_types.join(', ') %> access to <%= @access_request.resource.long_name %></p>
+<p>Your request has been sent to you manager, <%= @access_request.manager.full_name %>, for approval.</p>
+
+Thanks,
+The ACS Team.
+

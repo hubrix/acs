@@ -1,0 +1,25 @@
+<fieldset id="resource_owners" class="chunker_container">
+<legend><%= @user.resources.count %> Resource Ownerships</legend>
+<span>This section is for viewing resources that <%= @user.first_name %> is an owner of and if you have the permission, to assign <%= @user.first_name %> as an owner of resources. The section below is not used to request access to a resource, please use the <%= link_to "request access", new_access_request_path %> link on the sidebar for that. Use the blue icons along the right to help drill down to current ownerships.</span>
+  <ul class="top_level_chunk">
+    <% @all_resource_groups.each do |resource_group| %>
+      <li class="resource_groups collapsable">
+        <h5 class="pivot"><%= resource_group.name %><%= image_tag "circular/bullet_blue.png" if @user.owns_resource_in_resource_group?(resource_group) %></h5>
+        <ul>
+          <% resource_group.resources.includes(:users).alphabetical.to_a.chunker.each do |row| %>
+            <li class="piece_of_chunk_container">
+              <% row.each do |resource| %>
+                <% next if resource.nil? %>
+                <div class="piece_of_chunk">
+                  <%= check_box_tag "user[resource_ids][]", resource.id, resource.owned_by?(@user), :id => "user_resource_ids_#{resource.id}", :disabled => !current_user.admin? %>
+                  <%= f.label "resource_ids_#{resource.id}", resource.name %>
+                </div>
+              <% end %>
+            </li>
+          <% end %>
+        </ul>
+      </li>
+    <% end %>
+  </ul>
+</fieldset>
+

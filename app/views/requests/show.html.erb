@@ -1,0 +1,36 @@
+<fieldset class="display_info chunker_container">
+  <section class="request_table">
+    <header>Request</header>
+    <table class="awesome_tables access_request_summary">
+      <tr>
+        <th>Created</th>
+        <th>For</th>
+        <th>Created By</th>
+        <th class="wide9">Reason</th>
+        <th class="wide14">Status</th>
+      </tr>
+      <tr>
+        <td><%= @request.created_at.to_fs(:short) %></td>
+        <td><%= link_to @request.user.full_name, @request.user %></td>
+        <td><%= link_to @request.created_by.full_name, @request.created_by %></td>
+        <td class="request_reason"><p class="<%= @request.reason %>"><%= @request.reason %></p></td>
+        <td>
+          <% if @request.completed? %>
+            completed<%= " at #{@request.completed_at.to_fs(:short)}" unless @request.completed_at.blank? %>
+          <% else %>
+            <%= @request.current_state %>
+          <% end %>  
+        </td>
+      </tr>
+      <tr>
+        <td colspan="4">
+          <div class="percent_request_complete">
+            <span class="percentage" style="width: <%= @request.percent_complete %>%;">&nbsp;</span>
+          </div>
+        </td>
+        <td><%= @request.percent_complete %>% complete</td>
+      </td>
+    </table>
+  </section>
+</fieldset>
+<%= render :partial => 'access_requests/table', :locals => { :access_requests => @request.access_requests, :caption => 'Access Requests' } %>

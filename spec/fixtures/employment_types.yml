@@ -1,0 +1,8 @@
+full_time:
+  name: Full Time
+loa:
+  name: LOA
+intern:
+  name: Intern
+temp:
+  name: temp

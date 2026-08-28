@@ -1,0 +1,70 @@
+<div class="field">
+  <%= f.label :job_id %>
+  <% if current_user.manager? && !current_user.preferred_viewable_departments.nil?%>
+    <%= f.select :job_id, option_groups_from_collection_for_select(Department.alphabetical.includes(:jobs).where(id: current_user.viewable_departments), :active_jobs, :name, :id, :name, @user.try(:job).try(:id)) %> 
+  <% else %>  
+    <%= f.select :job_id, option_groups_from_collection_for_select(Department.alphabetical.includes(:jobs).all, :active_jobs, :name, :id, :name, @user.try(:job).try(:id)) %>
+  <% end %>
+</div>
+<div class="field">
+  <%= f.label :company_id %>
+  <%= f.select :company_id, Company.all.map{|comp| [ comp.name, comp.id ]} %>
+</div>
+<div class="field">
+  <%= f.label :manager_flag, "Is a manager?" %>
+  <%= f.check_box :manager_flag %>
+</div>
+<div class="field">
+  <%= f.label :nonhuman_flg, "Is a nonhuman user?" %>
+  <%= f.check_box :nonhuman_flg %>
+</div>
+<div class="field">
+  <%= f.label :manager_id %>
+  <%= f.select :manager_id, @managers.map{|m| [ m.login, m.id ]}, :include_blank => true %>
+</div>
+<div class="field">
+  <%= f.label :first_name %>
+  <%= f.text_field :first_name %>
+</div>
+<div class="field">
+  <%= f.label :nickname %>
+  <%= f.text_field :nickname %> (optional)
+</div>
+<div class="field">
+  <%= f.label :last_name %>
+  <%= f.text_field :last_name %>
+</div>
+<div class="field">
+  <%= f.label :employment_type_id %>
+  <%= f.select :employment_type_id, @employment_types.map {|e| [e.name, e.id]} %>
+</div>
+<div class="field">
+  <%= f.label :start_date %>
+  <%= f.date_select :start_date %>
+</div>
+<% if !['new', 'permissions'].include?(action_name) && current_user.can_manage?(@user) %>
+  <div class="field">
+    <label>ACS Roles</label>
+    <% Role.all.each_with_index do |role, i| %>
+      <label class="inline_label<%= ' first_label' if i == 0 %>" for="user_role_ids_<%= role.id %>"><%= role.name %></label>
+      <%= check_box_tag "user[role_ids][]", role.id, @user.roles.include?(role) %><%= ' |' unless i == 4%>
+    <% end %>
+  </div>
+  <div class="field">
+    <%= f.label :login %>
+    <%= f.text_field :login %>
+  </div>
+  <div class="field">
+    <%= f.label :current_state %>
+    <p>
+      <%= @user.current_state %>
+      <% if @user.terminated? %>
+        (<%= @user.end_date.try(:to_fs, :long) %> by <%= @user.terminated_by.try(:full_name) %>)
+      <% end %>
+    </p>
+  </div>
+  <div class="field">
+    <%= f.label :email %>
+    <%= f.text_field :email %>
+  </div>
+<% end %>

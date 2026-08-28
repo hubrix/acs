@@ -1,0 +1,41 @@
+<%
+  form = false if local_assigns[:form].nil?
+%>
+<fieldset class="display_info chunker_container">
+  <legend><%= 'My ' if current_user == user %> <%= pluralize(user.permissions.count, 'Permission') %></legend>
+  <% if user.permissions.blank? %>
+    <p><%= user.full_name %> does not have any permissions.</p>
+  <% else %>
+    <ul class="top_level_chunk">
+      <% @resource_groups.each do |resource_group| %>
+      <li class="resource_groups collapsable">
+        <h5 class="pivot"><%= resource_group.name %></h5>
+        <ul id="rg_<%= resource_group.name.downcase_underscore %>">
+          <% resource_group.resources.user_has_access(user).each do |resource| %>
+            <li>
+              <h6><%= resource.name %></h6>
+              <ul>
+                <% resource.permissions.of(user).to_a.chunker.each do |row| %>
+                  <li>
+                    <% row.each do |permission| %>
+                      <% next if permission.nil? %>
+                      <div class="piece_of_chunk">
+                        <% if form %>
+                          <%= check_box_tag "resources[#{resource.id}][permission_ids][]", permission.id, false, :id => "resources_permission_ids_#{permission.id}" %>
+                          <%= label_tag "resources_permission_ids_#{permission.id}", permission.permission_type.name %>
+                        <% else %>
+                          <%= permission.permission_type.name %>
+                        <% end %>
+                      </div>
+                    <% end %>
+                  </li>
+                <% end %>
+              </ul>
+            </li>
+          <% end %>
+        </ul>
+      </li>
+    <% end %>
+  </ul>
+  <% end %>
+</fieldset>

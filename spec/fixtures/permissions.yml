@@ -1,0 +1,48 @@
+us_portal_executive:
+  permission_type: portal_executive
+  resource: us_portal
+  activated: true
+us_portal_admin:
+  permission_type: portal_admin
+  resource: us_portal
+  activated: true
+uk_portal_executive:
+  permission_type: portal_executive
+  resource: uk_portal
+  activated: true
+uk_portal_admin:
+  permission_type: portal_admin
+  resource: uk_portal
+  activated: true
+cyberark_access:
+  permission_type: application_access
+  resource: cyberark
+  activated: true
+cyberark_admin:
+  permission_type: application_admin
+  resource: cyberark
+  activated: true
+wiki:
+  permission_type: application_access
+  resource: wiki
+  activated: true
+wiki_admin:
+  permission_type: application_admin
+  resource: wiki
+  activated: true
+jira:
+  permission_type: application_access
+  resource: jira
+  activated: true
+jira_admin:
+  permission_type: application_admin
+  resource: jira
+  activated: true
+acunote:
+  permission_type: application_access
+  resource: acunote
+  activated: true
+acunote_admin:
+  permission_type: application_admin
+  resource: acunote
+  activated: true

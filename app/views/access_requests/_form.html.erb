@@ -1,0 +1,31 @@
+<% if current_user.manager? %>
+  <h5>Requesting Access For</h5>
+  <div>
+    <%= label_tag 'user_id' %>
+    <%= select_tag 'user_id', options_for_select(["For Myself"] + @subordinates.map {|u| [u.login, u.id]}) %>
+  </div>
+<% end %>
+<fieldset class="chunker_container">
+  <legend>Select Resource</legend>
+  <ul class="top_level_chunk">
+    <% @resource_groups.each do |resource_group| %>
+      <li class="resource_groups collapsable">
+        <h5 class="pivot"><%= resource_group.name %></h5>
+        <ul>
+          <% resource_group.active_resources.to_a.chunker.each do |row| %>
+            <li class="piece_of_chunk_container">
+              <% row.each do |resource| %>
+                <% next if resource.nil? %>
+                <div class="piece_of_chunk">
+                  <%= check_box_tag("resource_ids[]", resource.id, false, :id=> "resource_id_#{resource.id}")%>
+                  <%= label_tag "resource_id_#{resource.id}", resource.name %>
+                </div>
+              <% end %>
+            </li>
+          <% end %>
+        </ul>
+      </li>
+    <% end %>
+  </ul>
+</fieldset>
+

@@ -1,0 +1,6 @@
+<%= @user.full_name %>,
+<p><%= @request.user.full_name %>'s access requests for <%= @request.created_for_self? ? 'themselves' : @request.created_by.full_name %> are waiting to be process by help desk.</p>
+<p>Please visit <%= @url %> to finish processing the request.</p>
+
+Thanks,
+The ACS Team.

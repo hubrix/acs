@@ -1,0 +1,10 @@
+<%= @user.full_name %>,
+<p><%= @access_request.help_desk.full_name %> has processed your access request.</p>
+<ul>
+<% @access_request.permission_requests.each do |pr| %>
+  <li><%= @access_request.completed_at.to_fs(:long) %> - <%= @access_request.help_desk.full_name %> finished <%= @access_request.request_action == 'grant' ? 'granting' : 'revoking' %> <%= @access_request.permission_types.join(', ') %> permissions for <%= @access_request.resource.long_name %>.</li>
+<% end %>
+</ul>
+
+Thanks,
+The ACS Team.

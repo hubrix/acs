@@ -1,0 +1,30 @@
+# Copy to config/database.yml and adjust.
+#
+# Homebrew's postgresql@17 on this machine listens on port 5433, not the 5432
+# default -- check with `brew services list` / `psql -p 5433 -l`.
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS", 5) %>
+  host: <%= ENV.fetch("DATABASE_HOST", "localhost") %>
+  port: <%= ENV.fetch("DATABASE_PORT", 5433) %>
+  username: <%= ENV.fetch("DATABASE_USER", ENV["USER"]) %>
+  password: <%= ENV.fetch("DATABASE_PASSWORD", "") %>
+
+development:
+  <<: *default
+  database: acs_development
+
+test:
+  <<: *default
+  database: acs_test
+
+staging:
+  <<: *default
+  database: <%= ENV.fetch("DATABASE_NAME", "acs_staging") %>
+  url: <%= ENV["DATABASE_URL"] %>
+
+production:
+  <<: *default
+  database: <%= ENV.fetch("DATABASE_NAME", "acs_production") %>
+  url: <%= ENV["DATABASE_URL"] %>

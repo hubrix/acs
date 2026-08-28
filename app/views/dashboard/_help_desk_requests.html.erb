@@ -1,0 +1,3 @@
+<% unless @help_desk_requests.blank? %>
+  <%= render :partial => 'requests/table', :locals => { :requests => @help_desk_requests, :caption => 'Requests at Help Desk' } %>
+<% end %>

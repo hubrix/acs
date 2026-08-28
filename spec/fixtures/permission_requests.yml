@@ -1,0 +1,62 @@
+dengle_us_portal_admin:
+  access_request: dengle_us_portal
+  permission: us_portal_admin
+dengle_uk_portal_resource_owner_admin:
+  access_request: dengle_uk_portal_resource_owner
+  permission: uk_portal_admin
+  approved_by_manager: true
+  approved_by_manager_at: <%= Time.now - 25 %>
+dengle_wiki_help_desk_admin:
+  access_request: dengle_wiki_help_desk
+  permission: wiki_admin
+  approved_by_manager: true
+  approved_by_manager_at: <%= Time.now - 25 %>
+  approved_by_resource_owner: true
+  approved_by_resource_owner_at: <%= Time.now - 15 %>
+dengle_revoke_acunote_help_desk_admin:
+  access_request: dengle_revoke_acunote_help_desk
+  permission: acunote_admin
+  approved_by_manager: true
+  approved_by_manager_at: <%= Time.now - 25 %>
+rcooper_wiki_help_desk:
+  access_request: rcooper_wiki_help_desk
+  permission: wiki_admin
+  approved_by_manager: true
+  approved_by_manager_at: <%= Time.now - 25 %>
+  approved_by_resource_owner: true
+  approved_by_resource_owner_at: <%= Time.now - 15 %>
+alee_cyberark_admin:
+  access_request: alee_cyberark_admin
+  permission: cyberark_admin
+  approved_by_manager: false
+  approved_by_manager_at: <%= Time.now - 15 %>
+rcooper_acunote_admin:
+  access_request: rcooper_acunote_admin
+  permission: acunote_admin
+  approved_by_manager: true
+  approved_by_manager_at: <%= Time.now - 15 %>
+dengle_jira_admin_complete:
+  access_request: dengle_jira_admin_complete
+  permission: acunote_admin
+  approved_by_manager: true
+  approved_by_manager_at: <%= Time.now - 30 %>
+  approved_by_resource_owner: true
+  approved_by_resource_owner_at: <%= Time.now - 20 %>
+jfaceless_wiki_waiting_for_help_desk_assignment:
+  access_request: jfaceless_wiki_waiting_for_help_desk_assignment
+  permission: wiki
+egarret_wiki_canceled:
+  access_request: egarret_wiki_canceled
+  permission: wiki
+  approved_by_manager: true
+  approved_by_manager_at: <%= Time.now - 15 %>
+holajuwon_wiki_help_desk:
+  access_request: holajuwon_wiki_help_desk
+  permission: wiki
+  approved_by_manager: true
+  approved_by_manager_at: <%= Time.now - 25 %>
+  approved_by_resource_owner: true
+  approved_by_resource_owner_at: <%= Time.now - 20 %>
+jserrano_wiki_waiting_for_manager:
+  access_request: jserrano_wiki_waiting_for_manager
+  permission: wiki

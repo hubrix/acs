@@ -1,0 +1,18 @@
+<table class="awesome_tables">
+  <caption>Jobs</caption>
+  <tr>
+    <th>Name</th>
+    <th>Department</th>
+    <th>Location</th>
+    <th>Employees</th>
+  </tr>
+  <% items.each do |job| %>
+    <tr>
+      <td><%= job.name  %></td>
+      <td><%= job.department.name %></td>
+      <td><%= job.department.location.name %></td>
+      <td><%= link_to job.users.size, job_users_path(job) %></td>
+    </tr>
+  <% end %>
+  <%= table_info_row items, :colspan => 4, :item_type => item_type %>
+</table>

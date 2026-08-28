@@ -1,0 +1,51 @@
+opssupport:
+  department: it_admin
+  name: Ops Support Engineer US
+  permissions: us_portal_admin
+  current_state: active
+product_mgmt_director:
+  department: product_management
+  name: Director of Product Management
+  permissions: wiki, us_portal_executive
+  current_state: active
+president:
+  department: executive_admin
+  name: President Internet Services
+  permissions: wiki
+  current_state: active
+recruiting_coordinator:
+  department: human_resources
+  name: Recruiting Coordinator
+  current_state: active
+  permissions: wiki
+administrative_assistant:
+  department: executive_admin
+  name: Administrative Assistant
+  permissions: wiki
+  current_state: active
+help_desk_manager:
+  department: it_admin
+  name: Help Desk Manager
+  permissions: wiki
+  current_state: active
+help_desk_member:
+  department: it_admin
+  name: Help Desk Member
+  permissions: wiki
+  current_state: active
+uk_application_support:
+  department: uk_ops
+  name: Application Support Rep
+  permissions: wiki, uk_portal_admin
+  current_state: active
+s_and_o_uk:
+  department: uk_ops
+  name: Strategy And Operations UK
+  permissions: wiki, uk_portal_executive
+  current_state: active
+product_mgmt_associate:
+  department: product_management
+  name: Product Management Associate
+  permissions: wiki, us_portal_executive
+  current_state: active
+

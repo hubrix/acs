@@ -1,0 +1,27 @@
+<h3>Editing Email Template</h3>
+
+<div class="slide_out">
+  <div class="slide_out_section">
+    <h5 class="section_header">Template for <%= @mailer_template.display_path %></h5>
+    <div id="access_request_note" class="slide_out_article big_text_area">
+      <%= form_for([:admin,@mailer_template]) do |f| %>
+        <% if @mailer_template.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= pluralize(@mailer_template.errors.count, "error") %> prohibited this job from being saved:</h2>
+            <ul>
+              <% @mailer_template.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+        <p><%= link_to "edit description", edit_description_admin_mailer_template_path(@mailer_template), :class => "align_right" %><%= @mailer_template.description %></p>
+        <%= render :partial => 'form', :locals => { :f => f } %>
+
+        <div class="actions">
+          <%= f.submit "Update Email Template", :class => 'awesome_button' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

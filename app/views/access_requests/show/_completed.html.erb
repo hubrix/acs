@@ -1,0 +1,11 @@
+<%= render :partial => 'access_requests/show/initial_request' %>
+<% unless @access_request.revocation? %>
+  <%= render :partial => 'access_requests/show/manager_review' %>
+  <%= render :partial => 'access_requests/show/resource_owner_approval' %>
+<% end %>
+<section>
+  <h5>Help Desk</h5>
+  <p>
+    <%= @access_request.completed_at.to_fs(:long) %> - <%= @access_request.help_desk.full_name %> completed this request.
+  </p>
+</section>

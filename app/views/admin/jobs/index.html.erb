@@ -1,0 +1,2 @@
+<%= link_to 'New job', new_admin_job_path, :class => 'new_obj_link awesome_button' %>
+<%= render :partial => 'table', :locals => { :items => @jobs, :item_type => 'Job' } %>

@@ -1,0 +1,15 @@
+<section>
+  <h5>Resource Owner Approval</h5>
+  <% if @access_request.waiting_for_resource_owner_assignment? %>
+    <p>Resource owner has not yet reviewed your request.</p>
+  <% elsif @access_request.waiting_for_resource_owner? %>
+    <p><%= @access_request.resource_owner.full_name %> has not yet approved your request.</p>
+  <% else %>
+    <ul>
+      <% @access_request.permission_requests.approved_by_resource_owner.all.each do |pr| %>
+        <li><%= pr.approved_by_resource_owner_at.to_fs(:long) %> - <%= @access_request.resource_owner.full_name %> <%= pr.approved_by_resource_owner? ? 'approved' : 'denied' %> <%= pr.permission.permission_type.name %> access.</li>
+      <% end %>
+    </ul>
+  <% end %>
+</section>
+

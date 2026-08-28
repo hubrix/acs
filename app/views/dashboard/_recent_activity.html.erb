@@ -1,0 +1,3 @@
+<% unless @recent_activity.blank? %>
+    <%= render :partial => 'requests/table', :locals => { :requests => @recent_activity, :caption => 'Recent Activity' } %>
+<% end %>

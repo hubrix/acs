@@ -1,0 +1,27 @@
+<% if @resource.active? %>
+  <%= real_button_to raw("<span class=\"cross icon\"></span>Deactivate"), admin_resource_path(@resource), :method => :delete, :class => 'new_obj_link negative button', :data => { :confirm => "Are you sure you want to deactivate #{@resource.name}?" } %>
+<% else %>
+  <%= real_button_to raw("<span class=\"plus icon\"></span>Activate"), admin_resource_activate_path(@resource), :class => 'new_obj_link button' %>
+<% end %>
+<h3>Editing resource</h3>
+<%= form_for([:admin,@resource]) do |f| %>
+  <% if @resource.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@resource.errors.count, "error") %> prohibited this resource from being saved:</h2>
+      <ul>
+      <% @resource.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+<%= render :partial => 'form', :locals => { :f => f } %>
+<%= render :partial => 'permissions_form', :locals => { :f => f } %>
+<%= render :partial => 'resource_owners_form', :locals => { :f => f } %>
+
+  <div class="actions">
+    <%= f.submit :class => 'awesome_button' %>
+  </div>
+<% end %>
+
+<%= render :partial => 'users/table', :locals => { :users => @users, :caption => 'Employee With Access' } %>

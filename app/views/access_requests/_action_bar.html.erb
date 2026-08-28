@@ -1,0 +1,29 @@
+<div id="action_bar">
+  <div class="container">
+    <div class="movement">
+      <%= link_to raw("<span class=\"leftarrow icon\"></span>Request"), @access_request.request, :class => 'left button' %>
+      <%= previous_access_request_link(@access_request)%>
+      <%= next_access_request_link(@access_request)%>
+    </div>
+    <% if @access_request.can_be_canceled_by?(current_user) %>
+      <div class="action_button" id="cancel_request_button">
+       <%= real_button_to raw("<span class=\"trash icon\"></span>Cancel Access Request"), cancel_access_request_path(@access_request), :class => 'negative button', :data => { :confirm => "Are you sure you want to cancel this access request?" } %>
+      </div>
+    <% end %>
+    <% if @access_request.can_be_assigned_to?(current_user) %>
+      <div class="action_button" id="assign_request_button">
+        <%= real_button_to raw("<span class=\"cog icon\"></span>Assign to me"), assign_request_access_request_path(@access_request), :class => 'primary button' %>
+      </div>
+    <% end %>
+    <% if @access_request.waiting_for_help_desk? && current_user.help_desk? %>
+      <div class="action_button" id="unasssign_request">
+        <%= real_button_to raw("<span class=\"user icon\"></span>Unassign Access Request"), unassign_access_request_path(@access_request), :class => 'button' %>
+      </div>
+    <% end %>
+    <% if @access_request.waiting_for_help_desk? && @access_request.current_worker == current_user %>
+      <div class="action_button" id="mark_complete">
+        <%= real_button_to raw("<span class=\"check icon\"></span>Mark as complete"), complete_access_request_path(@access_request), :class => 'primary positive button' %>
+      </div>
+    <% end %>
+  </div>
+</div>

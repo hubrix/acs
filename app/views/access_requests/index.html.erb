@@ -1,0 +1,20 @@
+<div class="slide_out">
+  <div class="slide_out_section">
+  <h5 class="section_header">Access Requests<%= " for #{@user.full_name}" unless @user.blank? %></h5>
+    <div class="slide_out_article">
+      <p>On this page, you are viewing all access requests that were...</p>
+      <ul>
+        <li>Created by <%= @user == current_user ? 'you' : @user.full_name %></li>
+        <li>Created for <%= @user == current_user ? 'you' : @user.full_name %></li>
+        <% if @user.manager? %>
+          <li>Requests approved as a manager by <%= @user == current_user ? 'you' : @user.full_name %></li>
+        <% end %>
+        <% if @user.help_desk? %>
+          <li>Requests completed by <%= @user == current_user ? 'you' : @user.full_name %></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<%= render :partial => 'access_requests/table', :locals => { :access_requests => @access_requests, :caption => 'Access Requests' } %>

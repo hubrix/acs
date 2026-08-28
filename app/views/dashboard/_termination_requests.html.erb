@@ -1,0 +1,3 @@
+<% unless @termination_requests.blank? %>
+  <%= render :partial => 'requests/table', :locals => { :requests => @termination_requests, :caption => 'Requests for Terminations' } %>
+<% end %>

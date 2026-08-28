@@ -1,0 +1,21 @@
+<h1>This is the test dashboard page</p>
+  <div id="button_sandbox">
+<ul>
+  <li>
+    <%= link_to raw("<span class=\"home icon\"></span>Dashboard"), dashboard_path, :class => 'button' %>
+  </li>
+  <li>
+    <%= link_to raw("<span class=\"home icon\"></span>Dashboard"), dashboard_path, :class => 'button' %>
+  </li>
+  <li>
+    <%= link_to raw("<span class=\"check icon\"></span>Good Thing"), dashboard_path, :class => 'positive button' %>
+    <%= link_to raw("<span class=\"home icon\"></span>Dashboard"), dashboard_path, :class => 'button' %>
+    <%= link_to raw("<span class=\"cross icon\"></span>Bad Thing"), dashboard_path, :class => 'negative button' %>
+  </li>
+  <li>
+    <%= link_to raw("<span class=\"check icon\"></span>Good Thing"), dashboard_path, :class => 'left primary pill positive button' %>
+    <%= link_to raw("<span class=\"home icon\"></span>Dashboard"), dashboard_path, :class => 'middle pill button' %>
+    <%= link_to raw("<span class=\"cross icon\"></span>Bad Thing"), dashboard_path, :class => 'right negative pill button' %>
+  </li>
+</ul>
+</div>

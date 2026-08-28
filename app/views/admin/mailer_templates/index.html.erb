@@ -1,0 +1,27 @@
+<table class="awesome_tables">
+  <caption>Email Templates</caption>
+  <tr>
+    <th>Path</th>
+    <th>Format</th>
+    <th>Locale</th>
+    <th>Handler</th>
+    <th>Partial</th>
+    <th></th>
+  <tr>
+  <% @mailer_templates.each do |mailer_template| %>
+    <tr>
+      <td><%= mailer_template.path %></td>
+      <td><%= mailer_template.format %></td>
+      <td><%= mailer_template.locale %></td>
+      <td><%= mailer_template.handler %></td>
+      <td><%= mailer_template.partial? %></td>
+      <td><%= link_to image_tag('icons/bullet_go.png'), edit_admin_mailer_template_path(mailer_template) %></td>
+    </tr>
+  <% end %>
+  <tr class="pagination">
+    <td class="pagination_links" colspan="6">
+      <div class="pagination_info"><%= page_entries_info @mailer_templates %></div>
+      <%= will_paginate @mailer_templates %>
+    </td>
+  </tr>
+</table>

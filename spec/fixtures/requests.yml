@@ -1,0 +1,62 @@
+dengle_us_portal:
+  created_by: dengle
+  user: dengle
+  reason: standard
+  current_state: in_progress
+dengle_uk_portal_resource_owner:
+  created_by: dengle
+  user: dengle
+  reason: standard
+  current_state: in_progress
+dengle_wiki_help_desk:
+  created_by: dengle
+  user: dengle
+  reason: standard
+  current_state: in_progress
+dengle_revoke_acunote_help_desk:
+  created_by: rcooper
+  user: dengle
+  reason: revoke
+  current_state: in_progress
+rcooper_wiki_help_desk:
+  created_by: rcooper
+  user: rcooper
+  reason: standard
+  current_state: in_progress
+alee_cyberark_admin:
+  created_by: alee
+  user: alee
+  reason: standard
+  current_state: completed
+  completed_at: <%= Time.now - 30.minutes %>
+rcooper_acunote_admin:
+  created_by: rcooper
+  user: rcooper
+  reason: standard
+  current_state: in_progress
+dengle_jira_admin_complete:
+  created_by: dengle
+  user: dengle
+  completed_at: <%= Time.now - 10 %>
+  reason: standard
+  current_state: completed
+jfaceless_wiki_waiting_for_help_desk_assignment:
+  created_by: nott
+  user: jfaceless
+  reason: new_hire
+  current_state: in_progress  
+egarret_wiki_canceled:
+  created_by: egarret
+  user: egarret
+  current_state: completed
+  reason: standard
+holajuwon_wiki_waiting_for_help_desk_assignment:
+  created_by: holajuwon
+  user: holajuwon
+  reason: termination
+  current_state: in_progress
+jserrano_wiki_waiting_for_manager:
+  created_by: jserrano
+  user: jserrano
+  reason: standard
+  current_state: in_progress

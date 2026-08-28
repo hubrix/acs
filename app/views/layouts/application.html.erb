@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <title>Access Control System</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <%= favicon_link_tag %>
+  <%= stylesheet_link_tag 'style', 'css3buttons', 'common', 'styles' %>
+  <%# RequireJS resolves its modules against undigested paths, so the 2011
+      JavaScript bundle (jQuery 1.4.4 + jquery_ujs) stays in public/. %>
+  <script data-main="/javascripts/main.js" src="/javascripts/requireplugins-jquery-1.4.4.min.js"></script>
+</head>
+<body class="<%= logged_in? ? 'signed_in' : 'sign_in' %>">
+<%= render 'shared/header' %>
+<div id="main_content">
+  <%= render 'shared/navigation' %>
+  <section id="content">
+    <% flash.each do |key, value| %>
+      <div class="msg <%= key %>"><%= value %></div>
+    <% end %>
+    <%= yield %>
+  </section>
+</div>
+<%= render 'shared/footer' %>
+</body>
+</html>

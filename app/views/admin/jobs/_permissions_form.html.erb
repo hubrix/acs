@@ -1,0 +1,30 @@
+<fieldset class="chunker_container">
+  <legend>Default Permissions</legend>
+  <ul class="top_level_chunk">
+    <% @resource_groups.each do |resource_group| %>
+      <li class="resource_groups collapsable">
+        <h5 class="pivot"><%= resource_group.name %><%= image_tag "circular/bullet_blue.png" if @job.has_permission_in_resource_group?(resource_group) %></h5>
+        <ul>
+          <% resource_group.resources.each do |resource| %>
+            <li>
+              <h6><%= resource.name %></h6>
+              <ul>
+                <% resource.permissions.to_a.chunker.each do |row| %>
+                  <li>
+                    <% row.each do |permission| %>
+                      <% next if permission.nil? %>
+                      <div class="piece_of_chunk">
+                        <%= check_box_tag "job[permission_ids][]", permission.id, @job.permissions.include?(permission), :id => "job_permissions_id_#{permission.id}" %>
+                        <%= f.label "permissions_id_#{permission.id}", permission.permission_type.name %>
+                      </div>
+                    <% end %>
+                  </li>
+                <% end %>
+              </ul>
+            </li>
+          <% end %>
+        </ul>
+      </li>
+    <% end %>
+  </ul>
+</fieldset>

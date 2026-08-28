@@ -1,0 +1,27 @@
+<h3>New Revoke Request</h3>
+<%= form_for(:access_request, :url => choose_permissions_path(:to_do => 'revoke')) do |f| %>
+<fieldset class="chunker_container">
+  <legend>Select a Team Member to Revoke Access</legend>
+  <ul class="top_level_chunk">
+    <li class="resource_groups">
+      <h5>Subordinates</h5>
+      <ul>
+        <% @subordinates.to_a.chunker.each do |row| %>
+          <li class="piece_of_chunk_container">
+            <% row.each do |user| %>
+              <% next if user.nil? %>
+              <div class="piece_of_chunk">
+                <%= radio_button_tag :user_id, user.id %>
+                <%= label_tag "user_id_#{user.id}", user.full_name %>
+              </div>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    </li>
+  </ul>
+</fieldset>
+<div class="actions">
+  <button type="submit" class="centerish button"><span class="rightarrow icon"></span>Next Step</button>
+</div>
+<% end %>

@@ -1,0 +1,16 @@
+<header id="page_header">
+  <% if logged_in? %>
+    <div id="info">
+      <p>Hello, <%= current_user.first_name %>. (<%= link_to "logout", logout_path %>)</p>
+    </div>
+    <% if current_user.admin? %>
+      <div id="search">
+        <%= form_tag search_path, :method => :get do |f| %>
+          <%= text_field_tag :q, params[:q], :placeholder => "Search..." %>
+          <button type="submit"><%= image_tag('circular/magnify.png', :size => '16x16', :border => 'none') %></button>
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
+  <%= link_to image_tag(App.home_image, :width => '180', :border => 0), root_path %>
+</header>

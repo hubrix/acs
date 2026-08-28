@@ -1,0 +1,7 @@
+<ul>
+  <% request.resources.group_by(&:resource_group).each do |resource_group, resources| %>
+    <li>
+      <span><%= resource_group.name %>:</span> <%= resources.map(&:name).join(', ')%>  
+    </li>
+  <% end %>
+</ul>

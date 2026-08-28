@@ -1,0 +1,14 @@
+<div class="field">
+  <%= f.label :resource_group_id %>
+  <%= f.select :resource_group_id, @resource_groups.map{|rg| [rg.name, rg.id]} %>
+</div>
+<div class="field">
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+</div>
+<div class="field">
+  <%= f.label :current_state %>
+  <p class="<%= 'deactivated' if @resource.deactivated? %>">
+    <%= @resource.current_state %>
+  </p>
+</div>

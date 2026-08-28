@@ -1,0 +1,16 @@
+it_admin:
+  location: chicago
+  name: IT Administration
+product_management:
+  location: chicago
+  name: Product Management
+executive_admin:
+  location: chicago
+  name: Executive Admin
+human_resources:
+  location: chicago
+  name: Human Resources
+uk_ops:
+  location: chicago
+  name: UK Ops
+

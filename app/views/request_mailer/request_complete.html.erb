@@ -1,0 +1,13 @@
+<%= @user.full_name %>,
+<p>This is a confirmation email for your records.</p>
+<p>The request for the following access...</p>
+<ul>
+<% @request.access_requests.each do |access_request| %>
+<li><%= access_request.permission_requests.map{|pr| pr.permission.permission_type.name }.join(', ') %> permissions to <%= access_request.resource.long_name %>.</li>
+<% end %>
+</ul>
+<p>...has been completed.</p>
+<p>You can visit <%= @url %> to see the final status of each request.</p>
+Thanks,
+The ACS Team.
+

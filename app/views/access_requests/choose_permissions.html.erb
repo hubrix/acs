@@ -1,0 +1,21 @@
+<h1>Select permissions to remove for <%= @user.full_name %></h1>
+<%= form_for @access_request, :url => revoke_access_access_requests_path do |f| %>
+  <% if @access_request.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@access_request.errors.count, "error") %> prohibited this access_request from being saved:</h2>
+      <ul>
+      <% @access_request.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <%= hidden_field_tag :user_id, @user.id %>
+  <fieldset class="chunker_container">
+    <%= render :partial => 'users/permissions', :locals => {:user => @user, :form => true} %>
+  </fieldset>  
+  <button type="submit" class="centerish button"><span class="check icon"></span>Submit Request</button>
+<% end %>
+<div class="actions terminate_user">
+  <%= real_button_to raw("<span class=\"cross icon\"></span>Terminate #{@user.first_name}"), terminate_admin_user_path(@user), :class => 'negative button', :data => { :confirm => "Are you sure you want to terminate #{@user.full_name}? This will remove their permissions for #{Resource.user_has_access(@user).count} resources." } %>
+</div>

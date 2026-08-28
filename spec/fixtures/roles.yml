@@ -1,0 +1,10 @@
+public:
+  name: Public
+hr:
+  name: HR
+help_desk:
+  name: Help Desk
+admin:
+  name: Admin
+auditor:
+  name: Auditor

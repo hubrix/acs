@@ -1,0 +1,7 @@
+<%= @access_request.manager.full_name %>,
+<p><%= @user.full_name %> requested <%= @access_request.permission_types.join(', ') %> access to <%= @access_request.resource.long_name %> but it has since been canceled.</p>
+<p>No further action is required on your part. Please visit <%= @url %> if you would like to review the access request.</p>
+
+Thanks,
+The ACS Team.
+

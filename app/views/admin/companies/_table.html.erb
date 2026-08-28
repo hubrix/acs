@@ -1,0 +1,16 @@
+<table class="awesome_tables">
+  <caption>Companies</caption>
+  <tr>
+    <th>Company Name</th>
+    <th>Email Domain</th>
+    <th>Employees</th>
+  </tr>
+  <% items.each do |company| %>
+    <tr>
+      <td><%= link_to company.name, edit_admin_company_path(company) %></td>
+      <td><%=h company.email_domain %></td>
+      <td><%=h company.employees.size %></td>
+    </tr>
+  <% end %>
+  <%= table_info_row items, :colspan => 3, :item_type => item_type %>
+</table>

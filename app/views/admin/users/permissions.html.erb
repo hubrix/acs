@@ -1,0 +1,19 @@
+<h3>Review Permissions for <%= "#{@user.full_name}" %></h3>
+<%= form_for([:admin, @user]) do |f| %>
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+      <ul>
+      <% @user.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <%= render :partial => 'form', :locals => { :f => f } %>
+  <%= render :partial => 'permissions_form', :locals => { :f => f } %>
+  <div class="actions">
+    <button type="submit" class="centerish button"><span class="user icon"></span>Create User</button>
+  </div>
+<% end %>
+

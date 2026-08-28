@@ -1,0 +1,8 @@
+<%
+rerun = File.file?('rerun.txt') ? IO.read('rerun.txt') : ""
+rerun_opts = rerun.to_s.strip.empty? ? "--format progress features" : "--format pretty #{rerun}"
+%>
+default: --publish-quiet --format progress --strict --tags "not @wip" features
+pretty: --publish-quiet --format pretty --strict --tags "not @wip" features
+wip: --publish-quiet --tags @wip:3 --wip features
+rerun: --publish-quiet <%= rerun_opts %> --format rerun --out rerun.txt --strict --tags "not @wip"

@@ -1,0 +1,8 @@
+<%= @access_request.resource_owner.full_name %>,
+<p><%= @user.full_name %> is requesting <%= @access_request.permission_types.join(', ') %> access to <%= @access_request.resource.long_name %>.</p>
+<p>Since you are the only owner of <%= @access_request.resource.long_name %>, it has been auto assigned to you.</p>
+<p>Please visit <%= @url %> to process the request.</p>
+
+Thanks,
+The ACS Team.
+

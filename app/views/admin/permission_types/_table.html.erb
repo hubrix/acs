@@ -1,0 +1,15 @@
+<table class="awesome_tables">
+  <caption>Permission Types</caption>
+  <tr>
+    <th>Name</th>
+    <th>Resources</th>
+    <th>Users</th>
+  </tr>
+  <% items.each do |permission_type| %>
+    <tr>
+      <td><%= permission_type.name %></td>
+      <td><%= link_to "#{permission_type.resources.size} Resources", "#" %></td>
+      <td><%= link_to "#{permission_type.users.size} Users", "#" %></td>
+    </tr>
+  <% end %>
+</table>

@@ -1,0 +1,34 @@
+<% if current_user.hr? || current_user.descendants.include?(user) %>
+  <% if !user.terminated? && user.active? %>
+    <%= real_button_to raw("<span class=\"trash icon\"></span>Terminate #{user.full_name}"), terminate_admin_user_path(user), :data => { :confirm => "Are you sure?" }, :class => 'button negative employee_actions', :id => 'terminate_user_button' %>
+  <% end %>
+  <% if user.active? %>
+    <%= real_button_to raw("<span class=\"rightarrow icon\"></span>Transfer #{user.full_name}"), transfer_new_path(:id => user.id), :class => 'button employee_actions'%>
+  <% end %>
+<% end %>
+<% if current_user.hr? %>
+  <% if user.terminated? %> 
+    <%= button_to "Rehire #{user.full_name}", rehire_admin_terminated_user_path(user), :data => { :confirm => "Are you sure?" }, :class => 'awesome_button negative_awesome_button employee_actions', :id => 'terminate_user_button' %>
+  <% elsif user.pending? %>
+	  <%= button_to("Confirm Employee", hr_confirm_admin_user_path(user), :data => { :confirm => "Are you sure you want to confirm this employee?" }, :class => "awesome_button employee_actions") %>
+	  <%= button_to("Veto Employee", hr_veto_admin_user_path(user), :data => { :confirm => "Are you sure you want to veto this employee?" }, :class => "awesome_button negative_awesome_button employee_actions") %>
+  <% elsif user.suspended? %>
+    <%= button_to("Confirm Termination", terminate_admin_user_path(user), :class => "awesome_button negative_awesome_button employee_actions") %>
+    <%= button_to("Deny Termination Request", reactivate_admin_user_path(user), :class => "awesome_button employee_actions") %>
+  <% end %>
+<% end %>
+    
+<h3>Account Information</h3>
+<%= form_for([:admin,user]) do |f| %>
+  <%= render :partial => 'shared/error_messages', :locals => { :obj => user } %>
+
+  <%= render :partial => 'admin/users/form', :locals => { :f => f } %>  
+  
+  <% if user.active? %>
+    <%= render :partial => 'admin/users/resources_form', :locals => { :f => f } %>
+  <% end %>
+  <div class="actions">
+    <button type="submit" class="centerish button"><span class="check icon"></span>Update Info</button>
+  </div>
+<% end %>
+

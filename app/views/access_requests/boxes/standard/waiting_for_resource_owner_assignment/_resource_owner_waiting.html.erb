@@ -1,0 +1,6 @@
+<p>This request is waiting to be assigned to</p>
+<ul>
+  <% @access_request.resource.users.each do |user| %>
+    <li><%= user.full_name %></li>
+  <% end %>
+</ul>

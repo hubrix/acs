@@ -1,0 +1,6 @@
+<%= @user.full_name %>,
+<p><%= @access_request.request.created_by.full_name %>'s access request to <%= @access_request.request_action %> access for <%= @access_request.request.created_for_self? ? 'themselves' : @access_request.request.created_by.full_name %> to <%= @access_request.permission_types.join(', ') %> permissions for <%= @access_request.resource.long_name %> has been approved.</p>
+<p>Please visit <%= @url %> to finish processing the request.</p>
+
+Thanks,
+The ACS Team.

@@ -1,0 +1,19 @@
+<h3>New User</h3>
+<%= form_for(@user, :url => new_permissions_admin_users_path) do |f| %>
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+      <ul>
+      <% @user.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <%= render :partial => 'form', :locals => { :f => f } %>
+
+  <div class="actions">
+    <button type="submit" class="centerish button"><span class="rightarrow icon"></span>Next Step</button>
+  </div>
+<% end %>
+

@@ -1,0 +1,16 @@
+<table class="awesome_tables" id="admin_resources">
+  <caption>Resources</caption>
+  <tr>
+    <th>Name</th>
+    <th>Resource Group</th>
+    <th>Permission Types</th>
+  </tr>
+  <% items.each do |resource| %>
+    <tr class="<%= 'problem_row' if resource.does_not_have_any_owners? %>">
+      <td><%= resource.name %></td>
+      <td><%= resource.resource_group.name %></td>
+      <td><%= (resource.permission_types.map {|pt| pt.name }).join(', ') %></td>
+    </tr>
+  <% end %>
+  <%= table_info_row items, :colspan => 3, :item_type => item_type %>
+</table>

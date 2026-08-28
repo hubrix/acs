@@ -1,0 +1,22 @@
+<fieldset class="display_info">
+  <legend>Account Information</legend>
+  <ul>
+    <li><span>ACS Roles:</span><%= user.roles.map(&:name).join(', ') %></li>
+    <li><span>Hire Date:</span><%= user.start_date.try(:to_s) %></li>
+    <li><span>First Name:</span><%= user.nickname.blank? ? user.first_name : user.nickname %></li>
+    <li><span>Last Name:</span><%= user.last_name %></li>
+    <li><span>Coworker Number:</span><%= user.coworker_number %></li>
+    <li><span>Login:</span><%= user.login %></li>
+    <li><span>Email:</span><%= user.email %></li>
+    <li><span>Company:</span><%= user.try(:company).try(:name) %></li>
+    <li><span>Department:</span><%= user.job.department.name %></li>
+    <li><span>Job:</span><%= user.job.name %></li>
+    <li><span>Is a manager?</span><%= user.manager_flag? ? 'Yes' : 'No' %></li>
+    <li><span>Manager:</span><%= user.try(:manager).try(:login) %></li>
+    <li><span>Employment Type:</span><%= user.employment_type.name %></li>
+    <li><span>Current Status:</span><%= user.current_state %></li>
+    <% if user.terminated? %>
+      <li><span>Terminated On:</span><%= user.end_date.try(:to_s) %></li>
+    <% end %>
+  </ul>  
+</fieldset>

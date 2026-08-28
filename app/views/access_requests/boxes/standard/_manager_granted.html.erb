@@ -1,0 +1,15 @@
+<p><%= @access_request.manager_approved_permissions.first.approved_by_manager_at.strftime("%Y-%m-%d %l:%M%P") %></p>
+<p><%= @access_request.manager.full_name %> approved</p>
+<ul>
+  <% @access_request.manager_approved_permissions.each do |permission_request| %>
+    <li><%= permission_request.permission.permission_type.name %></li>
+  <% end %>
+</ul>
+<% unless @access_request.manager_denied_permissions.blank? %>
+<p>and denied</p>
+<ul>
+  <% @access_request.manager_denied_permissions.each do |permission_request| %>
+    <li><%= permission_request.permission.permission_type.name %></li>
+  <% end %>
+</ul>
+<% end %>

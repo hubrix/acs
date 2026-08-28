@@ -1,0 +1,9 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @permission_type.name %>
+</p>
+
+<%= link_to 'Edit', edit_admin_resource_group_permission_type_path(@resource_group, @permission_type) %> |
+<%= link_to 'Back', edit_admin_resource_group_path(@resource_group) %>

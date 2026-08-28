@@ -1,0 +1,14 @@
+#!/bin/bash -e
+
+# Enable jemalloc for reduced memory usage and latency.
+if [ -z "${LD_PRELOAD+x}" ]; then
+  LD_PRELOAD=$(find /usr/lib -name libjemalloc.so.2 -print -quit)
+  export LD_PRELOAD
+fi
+
+# Create or migrate the database before booting the web server.
+case "$*" in
+  *"rails server"*|*"rails s "*|*"rails s") ./bin/rails db:prepare ;;
+esac
+
+exec "${@}"
